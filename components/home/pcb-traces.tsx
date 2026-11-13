@@ -58,7 +58,7 @@ function buildBoard(w: number, h: number) {
 	const wide = w > 768;
 	const reach = wide ? 0.34 : 0.45; // how far traces come in from each side
 
-	const bundles = Math.max(2, Math.round(w / 320));
+	const bundles = 4; // one per corner: top-left, top-right, bottom-left, bottom-right
 	for (let b = 0; b < bundles; b++) {
 		const fromLeft = b % 2 === 0;
 		const top = Math.floor(b / 2) % 2 === 0;
