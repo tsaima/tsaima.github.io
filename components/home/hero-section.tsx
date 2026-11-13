@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight, FileDown } from 'lucide-react';
-import { LidarScan } from './lidar-scan';
+import { PcbTraces } from './pcb-traces';
 
 import { Button } from '@/components/ui/button';
 import { fadeIn, staggerContainer } from '@/lib/motion';
@@ -12,14 +12,11 @@ import { intro, siteConfig } from '@/lib/constants';
 export function HeroSection() {
 	return (
 		<section className="relative overflow-hidden">
-			{/* LiDAR sweep background */}
+			{/* PCB trace background */}
 			<div className="absolute inset-0 z-0">
-				<LidarScan className="h-full w-full" />
+				<PcbTraces className="h-full w-full" />
 				<div className="absolute inset-0 bg-[radial-gradient(ellipse_45%_40%_at_50%_50%,hsl(var(--background)/0.85),transparent)]" />
 			</div>
-			<p className="absolute bottom-6 right-6 z-10 hidden md:block font-mono text-xs text-muted-foreground/80">
-				276° LiDAR scan · dashed arcs: ultrasonic coverage of the blind spot
-			</p>
 
 			{/* Content */}
 			<div className="container relative z-10 px-4 py-20 md:py-32 flex flex-col items-center justify-center min-h-[90vh]">

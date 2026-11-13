@@ -21,7 +21,7 @@
 		/* 70-20-10 palette
 		   70% neutral black/charcoal: background, cards, borders
 		   20% dark PCB green: alternate section bands, tags, schematic wires
-		   10% copper: buttons, links, highlights */
+		   10% solder-tin silver: buttons, links, highlights */
 		--background: 0 0% 4%;
 		--foreground: 0 0% 94%;
 
@@ -31,13 +31,13 @@
 		--popover: 0 0% 6%;
 		--popover-foreground: 0 0% 94%;
 
-		--primary: 24 78% 56%;
+		--primary: 210 10% 76%;
 		--primary-foreground: 0 0% 5%;
 
 		--secondary: 152 38% 15%;
 		--secondary-foreground: 145 25% 82%;
 
-		--accent: 24 78% 56%;
+		--accent: 210 10% 76%;
 		--accent-foreground: 0 0% 5%;
 
 		--muted: 152 40% 9%;
@@ -48,13 +48,13 @@
 
 		--border: 0 0% 15%;
 		--input: 0 0% 15%;
-		--ring: 24 78% 56%;
+		--ring: 210 10% 76%;
 
 		/* PCB green used directly for wires, grids and the scan */
 		--pcb: 152 45% 28%;
 
 		--chart-1: 152 45% 28%;
-		--chart-2: 24 78% 56%;
+		--chart-2: 210 10% 76%;
 		--chart-3: 0 0% 60%;
 		--chart-4: 190 40% 45%;
 		--chart-5: 0 60% 60%;
@@ -137,7 +137,7 @@
 }
 
 .text-gradient {
-	@apply bg-clip-text text-transparent bg-gradient-to-r from-[hsl(24_78%_56%)] to-[hsl(32_85%_70%)];
+	@apply bg-clip-text text-transparent bg-gradient-to-r from-[hsl(0_0%_96%)] via-[hsl(210_10%_76%)] to-[hsl(210_8%_56%)];
 }
 
 .section-title {
@@ -154,7 +154,7 @@
 	mask-image: linear-gradient(to top, transparent, black 50%);
 }
 
-/* Subtle copper-trace grid behind some sections */
+/* Subtle PCB grid behind some sections */
 .pcb-grid {
 	background-image:
 		linear-gradient(hsl(var(--pcb) / 0.12) 1px, transparent 1px),
