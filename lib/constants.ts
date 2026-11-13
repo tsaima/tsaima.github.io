@@ -14,8 +14,8 @@ export const siteConfig = {
 		{ title: 'Contact', href: '/contact/' },
 	],
 	resumes: [
-		{ title: 'Electrical engineering resume', short: 'EE resume', href: '/files/Maxwell_Tsai_Resume_EE.pdf' },
-		{ title: 'Robotics resume', short: 'Robotics resume', href: '/files/Maxwell_Tsai_Resume_Robotics.pdf' },
+		{ title: 'Electrical engineering resume', short: 'EE resume', href: encodeURI("/files/Maxwell Tsai Resume A Fall '26.pdf") },
+		{ title: 'Robotics resume', short: 'Robotics resume', href: encodeURI("/files/Maxwell Tsai Resume B Fall '26.pdf") },
 	],
 	links: {
 		email: 'mailto:maxwelljtsai@gmail.com',
