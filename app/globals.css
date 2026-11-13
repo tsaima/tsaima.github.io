@@ -18,44 +18,40 @@
 
 @layer base {
 	:root {
-		--background: 240 20% 3.9%;
-		--foreground: 0 0% 98%;
+		/* PCB palette: solder-mask green board, bright trace green, copper accents */
+		--background: 150 30% 4%;
+		--foreground: 60 10% 94%;
 
-		--card: 240 17% 8%;
-		--card-foreground: 0 0% 98%;
+		--card: 152 26% 7%;
+		--card-foreground: 60 10% 94%;
 
-		--popover: 240 20% 3.9%;
-		--popover-foreground: 0 0% 98%;
+		--popover: 150 30% 5%;
+		--popover-foreground: 60 10% 94%;
 
-		--primary: 169 70% 40%;
-		--primary-foreground: 0 0% 98%;
+		--primary: 142 58% 44%;
+		--primary-foreground: 150 40% 5%;
 
-		--secondary: 260 55% 56%;
-		--secondary-foreground: 0 0% 98%;
+		--secondary: 24 45% 22%;
+		--secondary-foreground: 30 75% 84%;
 
-		--accent: 37 90% 64%;
-		--accent-foreground: 240 10% 3.9%;
+		--accent: 27 70% 58%;
+		--accent-foreground: 150 40% 5%;
 
-		--muted: 240 10% 16%;
-		--muted-foreground: 240 5% 64.9%;
+		--muted: 150 18% 13%;
+		--muted-foreground: 140 8% 66%;
 
-		--destructive: 0 84.2% 60.2%;
+		--destructive: 0 72% 56%;
 		--destructive-foreground: 0 0% 98%;
 
-		--border: 240 10% 16%;
-		--input: 240 10% 16%;
-		--ring: 240 5% 64.9%;
+		--border: 150 20% 15%;
+		--input: 150 20% 15%;
+		--ring: 142 58% 44%;
 
-		--chart-1: 169 70% 40%;
-		/* teal */
-		--chart-2: 260 55% 56%;
-		/* purple */
-		--chart-3: 37 90% 64%;
-		/* amber */
-		--chart-4: 330 70% 58%;
-		/* pink */
-		--chart-5: 210 80% 64%;
-		/* blue */
+		--chart-1: 142 58% 44%;
+		--chart-2: 27 70% 58%;
+		--chart-3: 45 75% 60%;
+		--chart-4: 190 55% 50%;
+		--chart-5: 0 60% 60%;
 
 		--radius: 0.5rem;
 	}
@@ -135,7 +131,7 @@
 }
 
 .text-gradient {
-	@apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-accent;
+	@apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
 }
 
 .section-title {
@@ -150,4 +146,27 @@
 .mask-image {
 	-webkit-mask-image: linear-gradient(to top, transparent, black 50%);
 	mask-image: linear-gradient(to top, transparent, black 50%);
+}
+
+/* Subtle copper-trace grid behind some sections */
+.pcb-grid {
+	background-image:
+		linear-gradient(hsl(var(--primary) / 0.05) 1px, transparent 1px),
+		linear-gradient(90deg, hsl(var(--primary) / 0.05) 1px, transparent 1px);
+	background-size: 32px 32px;
+}
+
+@keyframes current-flow {
+	to { stroke-dashoffset: -60; }
+}
+.current-flow {
+	stroke-dasharray: 6 24;
+	animation: current-flow 1.6s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+	.current-flow { animation: none; }
+}
+
+input[type='range'].copper-range {
+	accent-color: hsl(var(--accent));
 }

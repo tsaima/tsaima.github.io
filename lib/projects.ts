@@ -25,6 +25,7 @@ export type Block =
 	  }
 	| { type: 'budget'; caption: string; segments: { value: string; label: string }[] }
 	| { type: 'trials'; caption: string; note: string; rows: { label: string; results: boolean[] }[] }
+	| { type: 'stopDemo' }
 	| { type: 'cols'; left: Block[]; right: Block[] };
 
 export type Section = { id?: string; title: string; blocks: Block[] };
@@ -155,6 +156,7 @@ const busbot: Project = {
 						{ value: '2 cm', label: 'Sensor error' },
 					],
 				},
+				{ type: 'stopDemo' },
 				{ type: 'h3', text: 'Firmware' },
 				{
 					type: 'list',

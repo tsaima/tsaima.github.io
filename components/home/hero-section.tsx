@@ -1,51 +1,25 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight, FileDown } from 'lucide-react';
-import * as THREE from 'three';
-import NET from 'vanta/dist/vanta.net.min';
+import { LidarScan } from './lidar-scan';
 
 import { Button } from '@/components/ui/button';
 import { fadeIn, staggerContainer } from '@/lib/motion';
 import { intro, siteConfig } from '@/lib/constants';
 
 export function HeroSection() {
-	const [vantaEffect, setVantaEffect] = useState<any>(null);
-	const vantaRef = useRef<HTMLDivElement>(null);
-
-	useEffect(() => {
-		if (!vantaEffect && vantaRef.current) {
-			setVantaEffect(
-				NET({
-					el: vantaRef.current,
-					THREE: THREE,
-					mouseControls: true,
-					touchControls: true,
-					gyroControls: false,
-					minHeight: 200.00,
-					minWidth: 200.00,
-					scale: 0.8,
-					scaleMobile: 0.8,
-					color: 0xff3f81,
-					backgroundColor: 0x23153c,
-					points: 10.00,
-					maxDistance: 15.00,
-					spacing: 20.00,
-					showDots: false,
-				})
-			);
-		}
-		return () => {
-			if (vantaEffect) vantaEffect.destroy();
-		};
-	}, [vantaEffect]);
-
 	return (
 		<section className="relative overflow-hidden">
-			{/* Vanta.js Background */}
-			<div ref={vantaRef} className="absolute inset-0 z-0 opacity-60" />
+			{/* LiDAR sweep background */}
+			<div className="absolute inset-0 z-0 pcb-grid">
+				<LidarScan className="h-full w-full" />
+				<div className="absolute inset-0 bg-[radial-gradient(ellipse_45%_40%_at_50%_50%,hsl(var(--background)/0.85),transparent)]" />
+			</div>
+			<p className="absolute bottom-6 right-6 z-10 hidden md:block font-mono text-xs text-muted-foreground/80">
+				276° LiDAR scan · copper arcs: ultrasonic coverage of the blind spot
+			</p>
 
 			{/* Content */}
 			<div className="container relative z-10 px-4 py-20 md:py-32 flex flex-col items-center justify-center min-h-[90vh]">

@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import type { Block, Figure } from '@/lib/projects';
 import { RichText } from './rich-text';
+import { StopDistanceDemo } from './stop-distance-demo';
 
 // Figures and tables are numbered in order down the page, like a report.
 export type Counter = { fig: number; tab: number };
@@ -193,6 +194,8 @@ export function BlockView({ block, counter }: { block: Block; counter: Counter }
 				</div>
 			);
 		}
+		case 'stopDemo':
+			return <StopDistanceDemo />;
 		case 'cols':
 			return (
 				<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
