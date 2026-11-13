@@ -18,39 +18,45 @@
 
 @layer base {
 	:root {
-		/* PCB palette: solder-mask green board, bright trace green, copper accents */
-		--background: 150 30% 4%;
-		--foreground: 60 10% 94%;
+		/* 70-20-10 palette
+		   70% neutral black/charcoal: background, cards, borders
+		   20% dark PCB green: alternate section bands, tags, schematic wires
+		   10% copper: buttons, links, highlights */
+		--background: 0 0% 4%;
+		--foreground: 0 0% 94%;
 
-		--card: 152 26% 7%;
-		--card-foreground: 60 10% 94%;
+		--card: 0 0% 7%;
+		--card-foreground: 0 0% 94%;
 
-		--popover: 150 30% 5%;
-		--popover-foreground: 60 10% 94%;
+		--popover: 0 0% 6%;
+		--popover-foreground: 0 0% 94%;
 
-		--primary: 142 58% 44%;
-		--primary-foreground: 150 40% 5%;
+		--primary: 24 78% 56%;
+		--primary-foreground: 0 0% 5%;
 
-		--secondary: 24 45% 22%;
-		--secondary-foreground: 30 75% 84%;
+		--secondary: 152 38% 15%;
+		--secondary-foreground: 145 25% 82%;
 
-		--accent: 27 70% 58%;
-		--accent-foreground: 150 40% 5%;
+		--accent: 24 78% 56%;
+		--accent-foreground: 0 0% 5%;
 
-		--muted: 150 18% 13%;
-		--muted-foreground: 140 8% 66%;
+		--muted: 152 40% 9%;
+		--muted-foreground: 0 0% 64%;
 
 		--destructive: 0 72% 56%;
 		--destructive-foreground: 0 0% 98%;
 
-		--border: 150 20% 15%;
-		--input: 150 20% 15%;
-		--ring: 142 58% 44%;
+		--border: 0 0% 15%;
+		--input: 0 0% 15%;
+		--ring: 24 78% 56%;
 
-		--chart-1: 142 58% 44%;
-		--chart-2: 27 70% 58%;
-		--chart-3: 45 75% 60%;
-		--chart-4: 190 55% 50%;
+		/* PCB green used directly for wires, grids and the scan */
+		--pcb: 152 45% 28%;
+
+		--chart-1: 152 45% 28%;
+		--chart-2: 24 78% 56%;
+		--chart-3: 0 0% 60%;
+		--chart-4: 190 40% 45%;
 		--chart-5: 0 60% 60%;
 
 		--radius: 0.5rem;
@@ -123,7 +129,7 @@
 
 .card-gradient::before {
 	content: '';
-	@apply absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-primary/10 opacity-0 transition-opacity duration-300;
+	@apply absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-[hsl(var(--pcb)/0.25)] opacity-0 transition-opacity duration-300 pointer-events-none;
 }
 
 .card-gradient:hover::before {
@@ -131,7 +137,7 @@
 }
 
 .text-gradient {
-	@apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
+	@apply bg-clip-text text-transparent bg-gradient-to-r from-[hsl(24_78%_56%)] to-[hsl(32_85%_70%)];
 }
 
 .section-title {
@@ -151,8 +157,8 @@
 /* Subtle copper-trace grid behind some sections */
 .pcb-grid {
 	background-image:
-		linear-gradient(hsl(var(--primary) / 0.05) 1px, transparent 1px),
-		linear-gradient(90deg, hsl(var(--primary) / 0.05) 1px, transparent 1px);
+		linear-gradient(hsl(var(--pcb) / 0.12) 1px, transparent 1px),
+		linear-gradient(90deg, hsl(var(--pcb) / 0.12) 1px, transparent 1px);
 	background-size: 32px 32px;
 }
 

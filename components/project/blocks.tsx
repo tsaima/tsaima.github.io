@@ -116,7 +116,7 @@ export function BlockView({ block, counter }: { block: Block; counter: Counter }
 						)}
 						<tbody>
 							{block.rows.map((row, r) => (
-								<tr key={r} className={cn('border-t first:border-t-0 [thead+tbody_&]:border-t', block.mine?.includes(r) && 'bg-primary/10')}>
+								<tr key={r} className={cn('border-t first:border-t-0 [thead+tbody_&]:border-t', block.mine?.includes(r) && 'bg-[hsl(var(--pcb)/0.25)]')}>
 									{row.map((cell, c) =>
 										block.rowHeaders && c === 0 ? (
 											<th key={c} scope="row" className="px-4 py-2 text-left font-semibold align-top whitespace-nowrap">{cell}</th>
@@ -130,13 +130,13 @@ export function BlockView({ block, counter }: { block: Block; counter: Counter }
 							))}
 						</tbody>
 					</table>
-					{block.mine && <p className="px-4 py-2 text-xs text-muted-foreground border-t"><span className="inline-block h-2.5 w-2.5 rounded-sm bg-primary/30 mr-2 align-middle" />My work</p>}
+					{block.mine && <p className="px-4 py-2 text-xs text-muted-foreground border-t"><span className="inline-block h-2.5 w-2.5 rounded-sm bg-[hsl(var(--pcb)/0.6)] mr-2 align-middle" />My work</p>}
 				</div>
 			);
 		}
 		case 'budget': {
 			const n = ++counter.fig;
-			const shades = ['bg-primary/80', 'bg-secondary/80', 'bg-accent/80 text-accent-foreground', 'bg-muted'];
+			const shades = ['bg-[hsl(var(--pcb))]', 'bg-neutral-600', 'bg-primary text-primary-foreground', 'bg-neutral-800'];
 			const values = block.segments.map((s) => parseFloat(s.value));
 			const total = values.reduce((a, b) => a + b, 0);
 			return (

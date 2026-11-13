@@ -13,12 +13,12 @@ export function HeroSection() {
 	return (
 		<section className="relative overflow-hidden">
 			{/* LiDAR sweep background */}
-			<div className="absolute inset-0 z-0 pcb-grid">
+			<div className="absolute inset-0 z-0">
 				<LidarScan className="h-full w-full" />
 				<div className="absolute inset-0 bg-[radial-gradient(ellipse_45%_40%_at_50%_50%,hsl(var(--background)/0.85),transparent)]" />
 			</div>
 			<p className="absolute bottom-6 right-6 z-10 hidden md:block font-mono text-xs text-muted-foreground/80">
-				276° LiDAR scan · copper arcs: ultrasonic coverage of the blind spot
+				276° LiDAR scan · dashed arcs: ultrasonic coverage of the blind spot
 			</p>
 
 			{/* Content */}
@@ -31,7 +31,7 @@ export function HeroSection() {
 				>
 					<motion.h2
 						variants={fadeIn('up', 0.2)}
-						className="text-2xl md:text-3xl font-bold mb-4 text-primary"
+						className="text-sm md:text-base font-mono uppercase tracking-[0.2em] mb-5 text-muted-foreground"
 					>
 						Electrical Engineering · Robotics
 					</motion.h2>

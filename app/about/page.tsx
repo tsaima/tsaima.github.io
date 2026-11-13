@@ -42,8 +42,8 @@ export default function AboutPage() {
 						</div>
 					</motion.div>
 
-					<motion.div variants={fadeIn('left', 0.3)} className="relative h-[420px] lg:h-[500px] rounded-lg overflow-hidden">
-						<img src="/images/headshot.jpg" alt="Maxwell Tsai" className="h-full w-full object-cover" />
+					<motion.div variants={fadeIn('left', 0.3)} className="relative w-full max-w-sm mx-auto aspect-[4/5] rounded-lg overflow-hidden border">
+						<img src="/images/headshot.jpg" alt="Maxwell Tsai" className="h-full w-full object-cover object-top" />
 					</motion.div>
 				</motion.div>
 

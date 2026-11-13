@@ -99,7 +99,7 @@ export const skillGroups: { title: string; skills: string[] }[] = [
 	},
 	{
 		title: 'Programming',
-		skills: ['C', 'Python', 'Java', 'C++', 'Verilog', 'MATLAB', 'JMP Scripting Language'],
+		skills: ['Python', 'C/C++', 'MATLAB', 'Verilog', 'Java', 'JMP SL'],
 	},
 	{
 		title: 'Analysis and tools',

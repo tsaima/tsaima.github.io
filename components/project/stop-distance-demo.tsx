@@ -96,17 +96,17 @@ export function StopDistanceDemo() {
 			{/* Budget bar, drawn to scale against the 40 cm trigger */}
 			<div className="space-y-2">
 				<div className="relative h-10 rounded-md bg-muted overflow-hidden flex text-[11px] font-mono">
-					<div className="bg-primary/80 text-primary-foreground flex items-center justify-center" style={{ width: pct(CLEARANCE) }}>clear 20</div>
-					<div className="bg-[hsl(190_55%_45%)] text-primary-foreground flex items-center justify-center overflow-hidden" style={{ width: pct(reaction) }}>{reaction >= 4 ? reaction.toFixed(1) : ''}</div>
+					<div className="bg-[hsl(var(--pcb))] text-foreground flex items-center justify-center" style={{ width: pct(CLEARANCE) }}>clear 20</div>
+					<div className="bg-neutral-500 text-neutral-950 flex items-center justify-center overflow-hidden" style={{ width: pct(reaction) }}>{reaction >= 4 ? reaction.toFixed(1) : ''}</div>
 					<div className="bg-accent text-accent-foreground flex items-center justify-center overflow-hidden" style={{ width: pct(braking) }}>{braking >= 4 ? braking.toFixed(1) : ''}</div>
-					<div className="bg-secondary flex items-center justify-center" style={{ width: pct(SENSOR_ERR) }} />
+					<div className="bg-neutral-700 flex items-center justify-center" style={{ width: pct(SENSOR_ERR) }} />
 					<div className="absolute top-0 bottom-0 border-l-2 border-dashed border-foreground" style={{ left: pct(TRIGGER) }} />
 				</div>
 				<div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
-					<span><i className="inline-block h-2.5 w-2.5 rounded-sm bg-primary/80 mr-1.5 align-middle" />Required clearance 20 cm</span>
-					<span><i className="inline-block h-2.5 w-2.5 rounded-sm bg-[hsl(190_55%_45%)] mr-1.5 align-middle" />Reaction {reaction.toFixed(1)} cm</span>
+					<span><i className="inline-block h-2.5 w-2.5 rounded-sm bg-[hsl(var(--pcb))] mr-1.5 align-middle" />Required clearance 20 cm</span>
+					<span><i className="inline-block h-2.5 w-2.5 rounded-sm bg-neutral-500 mr-1.5 align-middle" />Reaction {reaction.toFixed(1)} cm</span>
 					<span><i className="inline-block h-2.5 w-2.5 rounded-sm bg-accent mr-1.5 align-middle" />Braking {braking.toFixed(1)} cm</span>
-					<span><i className="inline-block h-2.5 w-2.5 rounded-sm bg-secondary mr-1.5 align-middle" />Sensor error 2 cm</span>
+					<span><i className="inline-block h-2.5 w-2.5 rounded-sm bg-neutral-700 mr-1.5 align-middle" />Sensor error 2 cm</span>
 					<span><i className="inline-block h-3 border-l-2 border-dashed border-foreground mr-1.5 align-middle" />Firmware trigger 40 cm</span>
 				</div>
 			</div>
@@ -137,7 +137,7 @@ export function StopDistanceDemo() {
 				{finished && (pos! > 0.05 ? <span className="text-sm font-mono">Stopped {pos!.toFixed(1)} cm from the obstacle</span> : <span className="text-sm font-mono text-rose-400">Hit the obstacle</span>)}
 			</div>
 
-			<p className={cn('rounded-md border p-3 text-sm', ok ? 'border-primary/50 bg-primary/10' : 'border-rose-500/50 bg-rose-500/10')}>
+			<p className={cn('rounded-md border p-3 text-sm', ok ? 'border-[hsl(var(--pcb))] bg-[hsl(var(--pcb)/0.15)]' : 'border-rose-500/50 bg-rose-500/10')}>
 				{ok ? (
 					<>Total stopping distance is <b>{total.toFixed(1)} cm</b>, so braking at 40 cm leaves <b>{left.toFixed(1)} cm</b>. That meets the 20 cm requirement.</>
 				) : (

@@ -9,7 +9,7 @@ import { useEffect, useRef } from 'react';
 type Seg = [number, number, number, number];
 
 const FOV = (276 * Math.PI) / 180;
-const SWEEP_SECONDS = 4.5;
+const SWEEP_SECONDS = 8;
 const STEP = (0.6 * Math.PI) / 180;
 
 function rng(seed: number) {
@@ -113,8 +113,9 @@ export function LidarScan({ className }: { className?: string }) {
 		let start = performance.now();
 
 		const css = (name: string) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-		const green = `hsl(${css('--primary') || '142 58% 44%'})`;
-		const copper = (alpha: number) => `hsl(${css('--accent') || '27 70% 58%'} / ${alpha})`;
+		const pcb = (alpha: number) => `hsl(${css('--pcb') || '152 45% 28%'} / ${alpha})`;
+		const copper = `hsl(${css('--accent') || '24 78% 56%'})`;
+		const grey = (alpha: number) => `hsl(0 0% 75% / ${alpha})`;
 
 		const setup = () => {
 			const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -153,7 +154,7 @@ export function LidarScan({ className }: { className?: string }) {
 			ctx.clearRect(0, 0, w, h);
 
 			// Range rings
-			ctx.strokeStyle = 'hsl(142 58% 44% / 0.08)';
+			ctx.strokeStyle = 'hsl(0 0% 100% / 0.04)';
 			ctx.lineWidth = 1;
 			const s = Math.min(w, h);
 			for (let k = 1; k <= 4; k++) {
@@ -164,13 +165,13 @@ export function LidarScan({ className }: { className?: string }) {
 
 			// Blind spot behind the robot, covered by ultrasonic sensors
 			const back = heading + Math.PI;
-			ctx.fillStyle = copper(0.06);
+			ctx.fillStyle = pcb(0.12);
 			ctx.beginPath();
 			ctx.moveTo(rx, ry);
 			ctx.arc(rx, ry, s * 0.2, back - (Math.PI * 2 - FOV) / 2, back + (Math.PI * 2 - FOV) / 2);
 			ctx.closePath();
 			ctx.fill();
-			ctx.strokeStyle = copper(0.35);
+			ctx.strokeStyle = grey(0.18);
 			ctx.setLineDash([3, 5]);
 			for (const r of [0.07, 0.12, 0.17]) {
 				ctx.beginPath();
@@ -185,13 +186,13 @@ export function LidarScan({ className }: { className?: string }) {
 				if (!isFinite(hpt.d)) continue;
 				const age = reduce ? 0 : (now - hpt.t) / 1000;
 				if (age > 1e6) continue;
-				const alpha = reduce ? 0.8 : Math.max(0.18, 1 - age / SWEEP_SECONDS);
+				const alpha = reduce ? 0.35 : Math.max(0.1, 0.55 * (1 - age / SWEEP_SECONDS));
 				const jitter = (Math.sin(i * 12.9898) * 43758.5453) % 1;
 				const d = hpt.d + jitter * 1.5;
 				const x = rx + Math.cos(hpt.a) * d;
 				const y = ry + Math.sin(hpt.a) * d;
-				ctx.fillStyle = copper(alpha);
-				ctx.fillRect(x - 1.3, y - 1.3, 2.6, 2.6);
+				ctx.fillStyle = grey(alpha);
+				ctx.fillRect(x - 1, y - 1, 2, 2);
 			}
 
 			// Beam
@@ -199,15 +200,15 @@ export function LidarScan({ className }: { className?: string }) {
 				const a = heading - FOV / 2 + phase * FOV;
 				const len = Math.hypot(w, h);
 				const grad = ctx.createRadialGradient(rx, ry, 0, rx, ry, len * 0.6);
-				grad.addColorStop(0, 'hsl(142 58% 44% / 0.28)');
-				grad.addColorStop(1, 'hsl(142 58% 44% / 0)');
+				grad.addColorStop(0, pcb(0.35));
+				grad.addColorStop(1, pcb(0));
 				ctx.fillStyle = grad;
 				ctx.beginPath();
 				ctx.moveTo(rx, ry);
-				ctx.arc(rx, ry, len, a - 0.22, a);
+				ctx.arc(rx, ry, len, a - 0.15, a);
 				ctx.closePath();
 				ctx.fill();
-				ctx.strokeStyle = 'hsl(142 58% 50% / 0.7)';
+				ctx.strokeStyle = pcb(0.8);
 				ctx.beginPath();
 				ctx.moveTo(rx, ry);
 				const d = Math.min(cast(rx, ry, a, segs), len);
@@ -220,14 +221,14 @@ export function LidarScan({ className }: { className?: string }) {
 			ctx.translate(rx, ry);
 			ctx.rotate(heading);
 			const rw = Math.max(16, s * 0.04);
-			ctx.fillStyle = 'hsl(150 30% 6%)';
-			ctx.strokeStyle = green;
+			ctx.fillStyle = 'hsl(0 0% 6%)';
+			ctx.strokeStyle = copper;
 			ctx.lineWidth = 2;
 			ctx.beginPath();
 			ctx.roundRect(-rw * 0.6, -rw * 0.5, rw * 1.2, rw, 4);
 			ctx.fill();
 			ctx.stroke();
-			ctx.fillStyle = green;
+			ctx.fillStyle = copper;
 			ctx.beginPath();
 			ctx.arc(rw * 0.25, 0, rw * 0.16, 0, Math.PI * 2);
 			ctx.fill();

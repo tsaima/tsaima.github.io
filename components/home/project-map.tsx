@@ -32,7 +32,7 @@ function Wire({ d, active, delay }: { d: string; active: boolean; delay: number 
 			<motion.path
 				d={d}
 				fill="none"
-				stroke={active ? 'hsl(var(--accent))' : 'hsl(var(--primary) / 0.55)'}
+				stroke={active ? 'hsl(var(--accent))' : 'hsl(var(--pcb))'}
 				strokeWidth={active ? 3 : 2}
 				strokeLinejoin="round"
 				initial={{ pathLength: 0 }}
@@ -48,7 +48,7 @@ function Wire({ d, active, delay }: { d: string; active: boolean; delay: number 
 				strokeWidth={active ? 3 : 2}
 				strokeLinecap="round"
 				className="current-flow"
-				style={{ opacity: active ? 1 : 0.35, transition: 'opacity 0.2s' }}
+				style={{ opacity: active ? 1 : 0.18, transition: 'opacity 0.2s' }}
 			/>
 		</g>
 	);
@@ -73,7 +73,7 @@ function Block({
 			<rect
 				x={x} y={y} width={w} height={h} rx={6}
 				fill={active ? 'hsl(var(--accent) / 0.12)' : 'hsl(var(--card))'}
-				stroke={active ? 'hsl(var(--accent))' : 'hsl(var(--primary) / 0.6)'}
+				stroke={active ? 'hsl(var(--accent))' : 'hsl(var(--pcb))'}
 				strokeWidth={active ? 2.5 : 1.5}
 				style={{ transition: 'all 0.2s', cursor: 'pointer' }}
 			/>
@@ -111,7 +111,7 @@ export function ProjectMap() {
 				return (
 					<g key={p.slug}>
 						<Wire d={d} active={hover === p.slug} delay={i * 0.15} />
-						<circle cx={390} cy={PIN_Y[i]} r={3.5} fill="hsl(var(--accent))" />
+						<circle cx={390} cy={PIN_Y[i]} r={3.5} fill="hsl(var(--pcb))" />
 						<text x={355} y={PIN_Y[i] - 8} textAnchor="middle" fontSize={10} className="font-mono" fill="hsl(var(--muted-foreground))">{short[p.slug]}</text>
 						<Block x={40} y={BLOCK_Y[i] - 38} w={220} h={76} slug={p.slug} title={p.title} sub={p.slug === 'busbot' ? 'Senior design, in progress' : p.period} active={hover === p.slug} onHover={setHover} />
 					</g>
@@ -122,7 +122,7 @@ export function ProjectMap() {
 				return (
 					<g key={p.slug}>
 						<Wire d={d} active={hover === p.slug} delay={0.45 + i * 0.15} />
-						<circle cx={610} cy={PIN_Y[i]} r={3.5} fill="hsl(var(--accent))" />
+						<circle cx={610} cy={PIN_Y[i]} r={3.5} fill="hsl(var(--pcb))" />
 						<text x={645} y={PIN_Y[i] - 8} textAnchor="middle" fontSize={10} className="font-mono" fill="hsl(var(--muted-foreground))">{short[p.slug]}</text>
 						<Block x={740} y={BLOCK_Y[i] - 38} w={220} h={76} slug={p.slug} title={p.title} sub={p.period} active={hover === p.slug} onHover={setHover} />
 					</g>
@@ -144,12 +144,12 @@ export function ProjectMap() {
 				return (
 					<g key={p.slug}>
 						<Wire d={d} active={hover === p.slug} delay={i * 0.12} />
-						<circle cx={30} cy={cy} r={3.5} fill="hsl(var(--accent))" />
+						<circle cx={30} cy={cy} r={3.5} fill="hsl(var(--pcb))" />
 						<Block x={64} y={cy - 30} w={286} h={60} slug={p.slug} title={p.title} sub={`${p.category} · ${short[p.slug]}`} active={hover === p.slug} onHover={setHover} />
 					</g>
 				);
 			})}
-			<circle cx={90} cy={56} r={3.5} fill="hsl(var(--accent))" />
+			<circle cx={90} cy={56} r={3.5} fill="hsl(var(--pcb))" />
 		</svg>
 	);
 

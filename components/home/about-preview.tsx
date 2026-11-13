@@ -23,9 +23,9 @@ export function AboutPreview() {
 						initial="hidden"
 						whileInView="show"
 						viewport={{ once: true }}
-						className="relative h-[360px] md:h-[420px] rounded-lg overflow-hidden"
+						className="relative w-full max-w-sm mx-auto aspect-[4/5] rounded-lg overflow-hidden border"
 					>
-						<img src="/images/headshot.jpg" alt="Maxwell Tsai" className="h-full w-full object-cover" />
+						<img src="/images/headshot.jpg" alt="Maxwell Tsai" className="h-full w-full object-cover object-top" />
 					</motion.div>
 
 					<motion.div
