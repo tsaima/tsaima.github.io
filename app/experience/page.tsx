@@ -28,7 +28,7 @@ export default function ExperiencePage() {
 						variants={fadeIn('down', 0.3)}
 						className="text-lg text-muted-foreground mb-12"
 					>
-						Two summer internships at Intel.
+						Two summer internships at Intel in Hillsboro, Oregon.
 					</motion.p>
 
 					<div className="space-y-8">
@@ -59,6 +59,8 @@ export default function ExperiencePage() {
 											</div>
 										</div>
 
+										{exp.summary && <p className="text-muted-foreground mb-6 leading-relaxed">{exp.summary}</p>}
+
 										<div className="space-y-4">
 											<h3 className="text-lg font-semibold">What I did</h3>
 											<ul className="space-y-2">
@@ -70,6 +72,27 @@ export default function ExperiencePage() {
 												))}
 											</ul>
 										</div>
+
+										{exp.layers && (
+											<figure className="mt-8 space-y-2">
+												<h3 className="text-lg font-semibold mb-3">How the API is layered</h3>
+												<div className="space-y-0">
+													{exp.layers.map((layer, i) => (
+														<div key={layer.title}>
+															<div className={`grid grid-cols-[1fr_auto] gap-4 items-center rounded-md border px-4 py-3 ${layer.label === 'My API' ? 'border-primary/60 bg-[hsl(var(--pcb)/0.18)]' : 'bg-background'}`}>
+																<div>
+																	<p className="font-semibold">{layer.title}</p>
+																	<p className="text-sm text-muted-foreground">{layer.detail}</p>
+																</div>
+																<span className="font-mono text-xs text-muted-foreground">{layer.label}</span>
+															</div>
+															{i < exp.layers!.length - 1 && <div className="mx-auto h-4 w-px bg-[hsl(var(--pcb))]" />}
+														</div>
+													))}
+												</div>
+												<figcaption className="text-sm text-muted-foreground pt-1">Highlighted layers are what I wrote.</figcaption>
+											</figure>
+										)}
 
 										<div className="mt-6">
 											<h3 className="text-lg font-semibold mb-3">Tools</h3>

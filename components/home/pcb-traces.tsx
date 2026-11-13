@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 
 // Faint PCB traces for the hero background: bundles of parallel traces with 45° corners,
-// vias and a few IC footprints, kept to the edges so the middle stays clear for text.
+// ending in vias, kept to the edges so the middle stays clear for text.
 // Every few seconds a short silver "signal" runs along one trace.
 
 type Pt = [number, number];
@@ -55,15 +55,14 @@ function buildBoard(w: number, h: number) {
 	const rand = rng(11);
 	const traces: Pt[][] = [];
 	const vias: Pt[] = [];
-	const chips: { x: number; y: number; cw: number; ch: number }[] = [];
 	const wide = w > 768;
 	const reach = wide ? 0.34 : 0.45; // how far traces come in from each side
 
-	const bundles = Math.max(4, Math.round(w / 170));
+	const bundles = Math.max(2, Math.round(w / 320));
 	for (let b = 0; b < bundles; b++) {
 		const fromLeft = b % 2 === 0;
 		const top = Math.floor(b / 2) % 2 === 0;
-		const n = 2 + Math.floor(rand() * 4);
+		const n = 2 + Math.floor(rand() * 2);
 		const bandY = top ? h * (0.08 + rand() * 0.22) : h * (0.68 + rand() * 0.2);
 		const drop = (rand() < 0.5 ? -1 : 1) * g * (3 + Math.floor(rand() * 6));
 		const turnX = w * (0.05 + rand() * (reach - 0.15));
@@ -82,31 +81,7 @@ function buildBoard(w: number, h: number) {
 		}
 	}
 
-	// A few IC footprints near the corners with short stubs to their pads
-	const spots: Pt[] = wide
-		? [[w * 0.06, h * 0.46], [w * 0.88, h * 0.42], [w * 0.2, h * 0.9]]
-		: [[w * 0.08, h * 0.45], [w * 0.7, h * 0.5]];
-	for (const [x, y] of spots) {
-		const cw = g * (4 + Math.floor(rand() * 3));
-		const ch = g * (3 + Math.floor(rand() * 2));
-		chips.push({ x, y, cw, ch });
-		for (let k = 0; k <= cw / g - 1; k++) {
-			const px = x + g * 0.5 + k * g;
-			if (rand() < 0.55) {
-				const len = g * (2 + Math.floor(rand() * 5));
-				const pts = chamfer([[px, y + ch + 4], [px, y + ch + 4 + len], [px + (rand() < 0.5 ? -1 : 1) * g * 2, y + ch + 4 + len + g * 2]], g);
-				traces.push(pts);
-				vias.push(pts[pts.length - 1]);
-			}
-		}
-	}
-
-	// Loose vias scattered toward the edges
-	for (let i = 0; i < Math.round(w / 60); i++) {
-		const x = rand() < 0.5 ? rand() * w * 0.3 : w - rand() * w * 0.3;
-		vias.push([Math.round(x / g) * g, Math.round((rand() * h) / g) * g]);
-	}
-	return { traces, vias, chips, g };
+	return { traces, vias, g };
 }
 
 export function PcbTraces({ className }: { className?: string }) {
@@ -151,19 +126,6 @@ export function PcbTraces({ className }: { className?: string }) {
 				b.fill();
 				b.lineWidth = 1.6;
 				b.stroke();
-			}
-			for (const c of board.chips) {
-				b.strokeStyle = `hsl(${pcb} / 0.5)`;
-				b.lineWidth = 1.2;
-				b.strokeRect(c.x, c.y, c.cw, c.ch);
-				b.fillStyle = `hsl(${pcb} / 0.35)`;
-				for (let k = 0; k < c.cw / board.g; k++) {
-					b.fillRect(c.x + board.g * 0.5 + k * board.g - 2.5, c.y - 7, 5, 6);
-					b.fillRect(c.x + board.g * 0.5 + k * board.g - 2.5, c.y + c.ch + 1, 5, 6);
-				}
-				b.beginPath();
-				b.arc(c.x + 6, c.y + 6, 2, 0, Math.PI * 2);
-				b.fill();
 			}
 		};
 

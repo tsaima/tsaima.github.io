@@ -41,33 +41,47 @@ export type Experience = {
 	location?: string;
 	startDate: string;
 	endDate: string;
+	summary?: string;
 	description: string[];
 	technologies: string[];
+	// Optional layer diagram, drawn top to bottom
+	layers?: { title: string; label: string; detail: string }[];
 };
 
 export const experiences: Experience[] = [
 	{
 		title: 'Data Science and Analytics Intern',
 		company: 'Intel',
-		startDate: 'Summer 2026',
-		endDate: '',
+		location: 'Hillsboro, OR',
+		startDate: 'May 2026',
+		endDate: 'Aug 2026',
 		description: [
-			'Started with ridge regression on in-line electrical test measurements from wafers, then found the training data was corrupt: metrology reprocessing uploads several model revisions per measurement, and the data-pulling system had no clean way to pick the correct one.',
-			'Worked with device engineers and the automation team to build an alpha branch of the data-pulling system that pulls all data per wafer, parses upload file names, and keeps the most recent model revision per measurement.',
-			'Cut a data pull that took over two weeks of manual stitching to two hours. The tool was adopted and stayed in use after the internship.',
+			'Cut wafer data retrieval from more than two weeks of manual stitching to two hours (about 100 measurements across about 200 wafers) by building a data-pulling tool in JMP Scripting Language with the device and automation teams. The team adopted it and kept using it after the internship.',
+			'Started with a ridge regression model predicting in-line electrical test values, and traced its errors to outdated metrology revisions in the training data: reprocessing uploads several model revisions per measurement, and the existing system had no clean way to pick the right one.',
+			'The tool pulls all data per wafer, parses upload file names, and keeps only the latest revision per measurement per wafer.',
 		],
-		technologies: ['JMP Scripting Language', 'Ridge regression', 'GitHub Copilot'],
+		technologies: ['JMP Scripting Language', 'JMP', 'Ridge regression', 'GitHub Copilot'],
 	},
 	{
-		title: 'Analog Product Development and Test Intern',
+		title: 'Analog Product Development & Test Engineer Intern',
 		company: 'Intel',
-		startDate: 'Summer 2025',
-		endDate: '',
+		location: 'Hillsboro, OR',
+		startDate: 'May 2025',
+		endDate: 'Aug 2025',
+		summary:
+			'Analog product development engineers were scripting lab tests with each instrument\'s own commands. I built a common Python layer so the same test code drives any of the lab\'s instruments, including from remote desktop.',
 		description: [
-			'Wrote a Python instrument-control API that let analog product development engineers script tests over remote desktop with common functions instead of instrument-specific commands.',
-			'Covered four lab instruments, including a bit error rate tester, and wrote about 100 unit tests.',
+			'Architected an object-oriented Python API that abstracts 4 lab instruments, including a bit error rate tester, as generalized scopes, clocks and sources, so engineers test with common functions instead of instrument-specific commands.',
+			'Automated IEEE 488.2 SCPI communication over GPIB with PyVISA to configure instruments and transfer measurement data.',
+			'Refactored more than 7,000 lines of Python to PEP 8 standards and wrote about 100 unit tests covering the API functions for each instrument.',
 		],
-		technologies: ['Python', 'Instrument control', 'Unit testing'],
+		layers: [
+			{ title: 'Test script', label: 'Engineer', detail: 'Written once, run over remote desktop' },
+			{ title: 'Common functions', label: 'My API', detail: 'Generalized Scope, Clock and Source classes' },
+			{ title: 'Instrument drivers', label: 'My API', detail: '4 instruments, including a bit error rate tester' },
+			{ title: 'PyVISA over GPIB', label: 'Bus', detail: 'IEEE 488.2 SCPI commands and data transfer' },
+		],
+		technologies: ['Python', 'Object-oriented design', 'PyVISA', 'GPIB', 'IEEE 488.2 SCPI', 'Bit error rate tester', 'Unit testing', 'PEP 8'],
 	},
 ];
 

@@ -14,7 +14,7 @@ export function ContactPreview() {
 			<div className="container px-4 text-center">
 				<SectionHeader
 					title="Get In Touch"
-					description="I am looking for full-time engineering roles in Boston starting in 2027."
+					description="I am looking for full-time engineering roles starting in 2027 and am open to relocating."
 					className="flex flex-col items-center"
 				/>
 				<motion.div
