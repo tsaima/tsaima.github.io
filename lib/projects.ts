@@ -100,45 +100,6 @@ const busbot: Project = {
 			],
 		},
 		{
-			id: 'power',
-			title: 'Power budget and battery selection',
-			blocks: [
-				{ type: 'p', text: "The power subsystem belongs to the team's other electrical engineer. My contribution was the power budget and the battery choice that came from it." },
-				{
-					type: 'cols',
-					left: [
-						{
-							type: 'table',
-							caption: 'Battery comparison at 12 V, 18 Ah.',
-							head: ['', 'Lithium iron phosphate', 'Sealed lead acid (chosen)'],
-							rowHeaders: true,
-							rows: [
-								['Weight', 'About 5 lb', 'About 12 lb, which keeps the center of gravity low under a load of dishes'],
-								['Cost', '$75 to $200', '$20 to $60'],
-								['Lab safety', 'Needs approval', 'Sealed, no approval needed'],
-								['Charge monitoring', 'Flat voltage curve, needs a calibrated current counter', 'Voltage falls predictably as it discharges'],
-							],
-						},
-					],
-					right: [
-						{
-							type: 'table',
-							caption: 'Expected average draw: 36 kg robot at 0.5 m/s, driving 75% of the time.',
-							head: ['Branch', 'Loads', 'Power'],
-							numeric: [2],
-							rows: [
-								['Drive', 'Two gearmotors at 72% duty, plus 20% for turns and starts', '20.9 W'],
-								['Compute', 'Jetson Orin Nano in 15 W mode, LiDAR, camera, converter losses', '21.1 W'],
-								['Control', 'ESP32-S3, ultrasonic sensors, load cells, encoders, IMU', '1.7 W'],
-								['**Total**', '3.6 A from the battery', '**43.7 W**'],
-							],
-						},
-					],
-				},
-				{ type: 'p', text: "The requirement is 2.5 hours per charge, counting only half of a lead acid battery's capacity as usable. An 18 Ah battery has 108 Wh usable, which gives 2.47 hours at 43.7 W. That is just short, and a worst case with the Jetson at full power drops to 1.7 hours. The 18 Ah battery is what we are testing with now. The budget says the final robot needs 22 Ah or more, and I will confirm that with a measured discharge test before we buy." },
-			],
-		},
-		{
 			id: 'sensors',
 			title: 'Sensor integration',
 			blocks: [
@@ -226,12 +187,68 @@ const busbot: Project = {
 			],
 		},
 		{
+			id: 'power',
+			title: 'Power budget and battery selection',
+			blocks: [
+				{ type: 'p', text: "The power subsystem belongs to the team's other electrical engineer. My contribution was the power budget and the battery choice that came from it." },
+				{
+					type: 'cols',
+					left: [
+						{
+							type: 'table',
+							caption: 'Battery comparison at 12 V, 18 Ah.',
+							head: ['', 'Lithium iron phosphate', 'Sealed lead acid (chosen)'],
+							rowHeaders: true,
+							rows: [
+								['Weight', 'About 5 lb', 'About 12 lb, which keeps the center of gravity low under a load of dishes'],
+								['Cost', '$75 to $200', '$20 to $60'],
+								['Lab safety', 'Needs approval', 'Sealed, no approval needed'],
+								['Charge monitoring', 'Flat voltage curve, needs a calibrated current counter', 'Voltage falls predictably as it discharges'],
+							],
+						},
+					],
+					right: [
+						{
+							type: 'table',
+							caption: 'Expected average draw: 36 kg robot at 0.5 m/s, driving 75% of the time.',
+							head: ['Branch', 'Loads', 'Power'],
+							numeric: [2],
+							rows: [
+								['Drive', 'Two gearmotors at 72% duty, plus 20% for turns and starts', '20.9 W'],
+								['Compute', 'Jetson Orin Nano in 15 W mode, LiDAR, camera, converter losses', '21.1 W'],
+								['Control', 'ESP32-S3, ultrasonic sensors, load cells, encoders, IMU', '1.7 W'],
+								['**Total**', '3.6 A from the battery', '**43.7 W**'],
+							],
+						},
+					],
+				},
+				{ type: 'p', text: "The requirement is 2.5 hours per charge, counting only half of a lead acid battery's capacity as usable. An 18 Ah battery has 108 Wh usable, which gives 2.47 hours at 43.7 W. That is just short, and a worst case with the Jetson at full power drops to 1.7 hours. The 18 Ah battery is what we are testing with now. The budget says the final robot needs 22 Ah or more, and I will confirm that with a measured discharge test before we buy." },
+			],
+		},
+		{
+			id: 'iterations',
+			title: 'What failed and what changed',
+			blocks: [
+				{
+					type: 'table',
+					caption: 'Problems found so far in my part of the robot, and what each one changed.',
+					head: ['Problem', 'What I found', 'What changed'],
+					rows: [
+						['LiDAR blind spot', 'The LiDAR we received sees 276°, not a full circle, so the robot cannot see directly behind itself.', 'Added rear ultrasonic sensing on the ESP32-S3. It covers the blind spot and still works if the navigation computer stalls.'],
+						['Power budget grew', 'My first estimate was about 35 W, with a Raspberry Pi 5 as the navigation computer. We then got a Jetson Orin Nano dev kit from the lab. The Jetson and a few smaller added components raised the budget to 43.7 W.', 'The 18 Ah battery falls just short of 2.5 hours. The final robot needs 22 Ah or more, pending a measured discharge test.'],
+						['Ultrasonic range error', 'The sensor passed at 20 cm and 40 cm but read 50.6 cm for a target at 80 cm.', 'The 40 cm stop is unaffected. The cause is not confirmed. My working guess is the sensor itself, an old unit we reused, so the next step is to retest with a new one.'],
+					],
+				},
+			],
+		},
+		{
 			id: 'next',
 			title: 'What comes next',
 			blocks: [
 				{
 					type: 'list',
 					items: [
+						'Replace the reused ultrasonic sensor with a new one and retest across the full range, to confirm whether the old unit caused the 80 cm error.',
 						'Rewire the integrated system so it runs from a stationary bench supply while driving on the fully assembled chassis base.',
 						'Power the LiDAR on the chassis through a boost converter, since it needs 19 V and the bus is 12 V.',
 						'Build the UART link between the Jetson and the ESP32-S3, so a QR request received by the Jetson starts the robot moving.',
