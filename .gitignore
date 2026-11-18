@@ -37,3 +37,6 @@ next-env.d.ts
 
 # full-size source photo, not part of the site
 /headshot.png
+
+# full-size originals of site images, not part of the site
+/source-images/
