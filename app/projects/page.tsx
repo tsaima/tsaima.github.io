@@ -6,7 +6,10 @@ import { ProjectCard } from '@/components/project/project-card';
 import { projects } from '@/lib/projects';
 import { staggerContainer, fadeInScale } from '@/lib/motion';
 
-const groups = ['Hardware', 'Software'] as const;
+const groups = [
+	{ title: 'Main projects', filter: (p: (typeof projects)[number]) => !!p.pinned },
+	{ title: 'Other projects', filter: (p: (typeof projects)[number]) => !p.pinned },
+];
 
 export default function ProjectsPage() {
 	return (
@@ -22,11 +25,11 @@ export default function ProjectsPage() {
 					</motion.div>
 
 					{groups.map((group) => (
-						<section key={group} className="mb-16">
-							<h2 className="section-title">{group} projects</h2>
+						<section key={group.title} className="mb-16">
+							<h2 className="section-title">{group.title}</h2>
 							<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 								{projects
-									.filter((p) => p.category === group)
+									.filter(group.filter)
 									.map((project, index) => (
 										<motion.div key={project.slug} variants={fadeInScale(index * 0.1)} className="flex">
 											<ProjectCard project={project} />

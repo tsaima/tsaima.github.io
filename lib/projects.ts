@@ -42,6 +42,7 @@ export type Project = {
 	image?: string; // card image (falls back to a title card)
 	tags: string[];
 	featured?: boolean;
+	pinned?: boolean; // one of the six main projects (project map, main grid)
 	facts: [string, string][];
 	hero?: Block; // figure or video next to the facts table
 	sections: Section[];
@@ -49,6 +50,7 @@ export type Project = {
 
 const busbot: Project = {
 	slug: 'busbot',
+	pinned: true,
 	title: 'BusBot',
 	category: 'Hardware',
 	period: 'Summer 2026 to Spring 2027, in progress',
@@ -301,6 +303,7 @@ const busbot: Project = {
 
 const laundryFolder: Project = {
 	slug: 'laundry-folder',
+	pinned: true,
 	title: 'Laundry Folder',
 	category: 'Hardware',
 	period: 'Spring 2026',
@@ -368,6 +371,7 @@ const laundryFolder: Project = {
 
 const bedsideBeacon: Project = {
 	slug: 'bedside-beacon',
+	pinned: true,
 	title: 'Bedside Beacon',
 	category: 'Hardware',
 	period: 'Fall 2025',
@@ -528,6 +532,7 @@ const dcOpf: Project = {
 
 const whackAMole: Project = {
 	slug: 'whack-a-mole',
+	pinned: true,
 	title: 'Whack-a-Mole',
 	category: 'Software',
 	period: 'Spring 2025',
@@ -575,6 +580,7 @@ const whackAMole: Project = {
 
 const tetris: Project = {
 	slug: 'tetris',
+	pinned: true,
 	title: 'Tetris for Android',
 	category: 'Software',
 	period: 'Fall 2024',
@@ -607,6 +613,313 @@ const tetris: Project = {
 	],
 };
 
-export const projects: Project[] = [busbot, laundryFolder, bedsideBeacon, dcOpf, whackAMole, tetris];
+const meetingTimer: Project = {
+	slug: 'meeting-timer',
+	title: 'Meeting Timer',
+	category: 'Hardware',
+	period: 'Fall 2026',
+	status: 'Complete',
+	role: 'System design, KiCad schematic, wiring, assembly and testing',
+	pinned: true,
+	summary:
+		'A self-contained desk timer: a stepper motor sweeps a clock hand through the time and a tricolor LED shows the state. I did the system design, KiCad schematic, wiring and final assembly.',
+	lead: 'A desk timer for meetings. Pick a preset and start it; a stepper motor turns the clock hand once over the timer while an LED shows what it is doing.',
+	image: '/images/MeetingTimer.jpg',
+	tags: ['KiCad', 'XIAO ESP32-S3', 'MicroPython', 'Stepper motor', 'State machine'],
+	facts: [
+		['My role', 'System design, KiCad schematic, wiring, final assembly and testing'],
+		['Team', '6 (2 electrical, 2 computer, 2 mechanical engineers); senior design warm-up project'],
+		['Parts', 'Seeed XIAO ESP32-S3, L293D driver, 28BYJ-48 stepper, two buttons, tricolor LED'],
+		['Tools', 'KiCad, VS Code with MicroPico'],
+	],
+	hero: {
+		type: 'figure',
+		figure: { src: '/images/MeetingTimer.jpg', alt: 'The finished meeting timer: a green 3D-printed box with a blue status LED and a clock hand on the side', caption: 'The finished timer.' },
+	},
+	sections: [
+		{
+			id: 'design',
+			title: 'System design',
+			blocks: [
+				{
+					type: 'cols',
+					left: [
+						{
+							type: 'list',
+							items: [
+								'**Button 1** changes the preset.',
+								'**Button 2:** a short press starts, pauses and resumes; a long press resets.',
+								'**LED:** blinking blue when idle, blinking green while running, steady blue when paused, blinking red when time is up.',
+							],
+						},
+					],
+					right: [
+						{ type: 'figure', figure: { src: '/images/MeetingTimer_StateDiagram.png', alt: 'Hand-drawn state diagram with idle, running, paused and expired states and the button presses that move between them', caption: 'My state diagram: four states, three inputs.' } },
+					],
+				},
+			],
+		},
+		{
+			id: 'circuit',
+			title: 'Circuit in KiCad',
+			blocks: [
+				{
+					type: 'cols',
+					left: [
+						{ type: 'figure', figure: { src: '/images/MeetingTimer_Schematic.png', alt: 'KiCad schematic: XIAO ESP32-S3 driving an L293D and a 5-wire stepper motor, two push buttons, and a tricolor LED with three 220 ohm resistors', caption: 'Schematic I drew in KiCad.' } },
+					],
+					right: [
+						{
+							type: 'list',
+							items: [
+								'The ESP32-S3 drives the stepper through an L293D driver.',
+								'Two buttons on D4 and D5; the tricolor LED on D8 to D10 through 220 Ω resistors.',
+								'I imported the Seeed XIAO symbol into KiCad and documented the motor coil order, which did not match the KiCad symbol pin numbers.',
+							],
+						},
+						{ type: 'figure', figure: { src: '/images/MeetingTimer_Circuitry.jpg', alt: 'Inside the timer: breadboard, microcontroller, driver and stepper motor wired inside the enclosure', caption: 'Wiring inside the enclosure.' } },
+					],
+				},
+			],
+		},
+		{
+			id: 'testing',
+			title: 'Assembly and testing',
+			blocks: [
+				{
+					type: 'cols',
+					left: [
+						{
+							type: 'table',
+							head: ['Problem', 'Cause', 'Fix'],
+							rows: [
+								['Motor stopped mid-timer', 'Three AAA cells fell from 4.8 V to about 4.2 V after 10 minutes.', 'Powered it over USB instead.'],
+								['Clock hand slipped', 'The motor warmed up and melted the hot glue holding the hand.', 'Mounted the hand with heat shrink braced by popsicle sticks.'],
+							],
+						},
+					],
+					right: [
+						{ type: 'video', src: '/videos/MeetingTimer_Demo.mp4', label: 'Video demo of the meeting timer', caption: 'Demo.' },
+					],
+				},
+			],
+		},
+	],
+};
+
+const temperatureMonitor: Project = {
+	slug: 'temperature-monitor',
+	title: 'Room Temperature Monitor',
+	category: 'Hardware',
+	period: 'Spring 2024',
+	status: 'Complete',
+	role: 'Solo project: CAD, 3D printing, wiring and code',
+	summary:
+		'An Arduino box that shows room temperature on an LCD and flashes and beeps outside 75 to 80 °F. A solo project where I learned CAD and 3D printing.',
+	lead: 'An Arduino box that shows room temperature on an LCD and flashes and beeps when it leaves 75 to 80 °F.',
+	image: '/images/TemperatureMonitor.jpg',
+	tags: ['Onshape', 'Tinkercad', '3D printing', 'Arduino', 'Soldering'],
+	facts: [
+		['Course', 'EK131 Hands-On Engineering'],
+		['Team', 'Solo'],
+		['Parts', 'Arduino Uno, TMP36 sensor, 16×2 I2C LCD, red and green LEDs, piezo buzzer, rocker switch, 9 V battery'],
+	],
+	hero: {
+		type: 'figure',
+		figure: { src: '/images/TemperatureMonitor.jpg', alt: 'The finished temperature monitor: black enclosure with wiring and Arduino inside, and the lid showing the temperature on an LCD', caption: 'Final assembly.' },
+	},
+	sections: [
+		{
+			id: 'cad',
+			title: 'CAD and 3D printing',
+			blocks: [
+				{
+					type: 'list',
+					items: [
+						'Measured every part and sketched it with dimensions.',
+						'Modeled the box in Onshape and cut holes for the LCD, switch, LEDs, buzzer and USB port.',
+						'3D printed a holder for the 9 V battery.',
+						'Mocked up the circuit in Tinkercad before building it.',
+					],
+				},
+				{
+					type: 'figures',
+					figures: [
+						{ src: '/images/TemperatureMonitor_CAD.jpg', alt: 'Onshape model of the enclosure with cutouts, the battery in its holder, and the lid with the LCD', caption: 'Onshape model.' },
+						{ src: '/images/TemperatureMonitor_Circuit.png', alt: 'Tinkercad circuit: Arduino Uno, 9 V battery, switch, TMP36, LEDs, buzzer and LCD', caption: 'Tinkercad circuit.' },
+						{ src: '/images/TemperatureMonitor_Sketch.jpg', alt: 'Hand sketch of the enclosure with measured dimensions', caption: 'Measured sketch of the enclosure.' },
+					],
+				},
+			],
+		},
+		{
+			id: 'build',
+			title: 'Wiring and code',
+			blocks: [
+				{
+					type: 'list',
+					items: [
+						'The Arduino reads the TMP36, converts to °F and updates the LCD every 100 ms.',
+						'Outside 75 to 80 °F, the red LED flashes and the buzzer beeps.',
+						'Soldered the LEDs, buzzer and sensor; wire nuts join the shared 5 V and ground.',
+						'Sized the LED resistors with KVL: 1 kΩ for green, 220 Ω for red.',
+					],
+				},
+				{ type: 'p', text: 'It met every goal: it switches on and off, reads the room accurately, and alarms out of range. A next version would be smaller and rechargeable.' },
+				{ type: 'button', label: 'Read the report (PDF)', href: '/files/EK131_Temperature_Monitor_Report.pdf' },
+			],
+		},
+	],
+};
+
+const truss: Project = {
+	slug: 'truss',
+	title: 'Truss Design in MATLAB',
+	category: 'Software',
+	period: 'Fall 2024',
+	status: 'Complete',
+	role: 'Team of 3: MATLAB truss analysis and design',
+	summary:
+		'A MATLAB truss solver used to design an acrylic truss for a 32 oz load. Rebalancing member lengths raised the predicted failure load from 38.6 to 47.1 oz.',
+	lead: 'A MATLAB program that solves every member force in a truss and predicts where it fails, used to design an acrylic truss for a 32 oz load.',
+	image: '/images/Truss_Design.png',
+	tags: ['MATLAB', 'Statics', 'Linear algebra'],
+	facts: [
+		['Course', 'EK301 Engineering Mechanics 1'],
+		['Team', '3'],
+		['Result', 'Predicted max load 47.1 ± 1.7 oz at a cost of $219'],
+	],
+	hero: {
+		type: 'figure',
+		figure: { src: '/images/Truss_Design.png', alt: 'Sketch of the final Warren truss with joint coordinates in inches and numbered members', caption: 'Final Warren truss, joint coordinates in inches.' },
+	},
+	sections: [
+		{
+			id: 'solver',
+			title: 'The solver',
+			blocks: [
+				{
+					type: 'list',
+					items: [
+						'Builds the equilibrium equations from the joint coordinates and a connection matrix, then solves for every member force and support reaction.',
+						'Predicts each compression member’s buckling strength from a fitted curve, `F = 4863 · L^-2.208` oz with L in inches.',
+						'The member that fails at the lowest load sets the truss’s max load. Cost is $10 per joint plus $1 per inch of member.',
+					],
+				},
+				{ type: 'code', text: 'A = [A1 Sx; A2 Sy];                   % x and y equilibrium at every joint\nT = A \\ L;                            % member forces and reactions\nP_crit = 4863.346 * len.^(-2.208);    % buckling strength (oz)\nW_fail = -P_crit ./ T(1:m) * sum(L);  % load at which each member buckles\nmax_load = min(W_fail(W_fail > 0));' },
+			],
+		},
+		{
+			id: 'iteration',
+			title: 'Design iteration',
+			blocks: [
+				{ type: 'p', text: 'We dropped the Pratt truss because our acrylic could not make its long members. In the first Warren design, member 8 carried 31.5 oz of compression against a 38.0 oz buckling strength. Shortening it from 9 to 7 inches raised its strength to 66.2 oz and moved the weak point to a member that carries less force.' },
+				{
+					type: 'cols',
+					left: [
+						{
+							type: 'table',
+							head: ['', 'First Warren', 'Final'],
+							rowHeaders: true,
+							rows: [
+								['Critical member', '8', '5'],
+								['Max load', '38.6 oz', '47.1 ± 1.7 oz'],
+								['Load per dollar', '0.176 oz/$', '0.215 oz/$'],
+							],
+						},
+						{ type: 'button', label: 'Read the report (PDF)', href: '/files/EK301_Truss_Report.pdf' },
+					],
+					right: [
+						{ type: 'figure', figure: { src: '/images/Truss_Output.png', alt: 'MATLAB command window output listing every member force, buckling strengths, the first member to buckle, cost and theoretical max load', caption: 'Solver output for the final design.' } },
+					],
+				},
+			],
+		},
+	],
+};
+
+const mbta: Project = {
+	slug: 'mbta-ridership',
+	title: 'Predicting MBTA Bus Ridership',
+	category: 'Software',
+	period: 'Fall 2023',
+	status: 'Complete',
+	role: 'Team of 3, work split evenly',
+	summary:
+		'MATLAB analysis of MBTA bus ridership from a 900,000-row dataset: the busiest times and stops, and a regression model that predicts boardings.',
+	lead: 'A MATLAB analysis of MBTA bus-stop ridership, from data cleaning to a machine learning model that predicts boardings.',
+	image: '/images/MBTA_TopStops.png',
+	tags: ['MATLAB', 'Regression Learner', 'Data analysis'],
+	facts: [
+		['Team', '3, work split evenly'],
+		['Data', 'MBTA bus ridership by stop, time of day and day type, fall 2016 to 2022'],
+		['Model', 'Regression on stop, time period and day type; RMSE 1.65 boardings'],
+	],
+	hero: {
+		type: 'figure',
+		figure: { src: '/images/MBTA_TopStops.png', alt: 'Bar chart of the five stops with the most weekday midday boardings, led by Harvard Upper Busway', caption: 'Busiest stops for weekday midday boardings.' },
+	},
+	sections: [
+		{
+			id: 'cleaning',
+			title: 'Cleaning the data',
+			blocks: [
+				{
+					type: 'list',
+					items: [
+						'Shuffled the 900,000 rows and kept 10,000 so the analysis ran quickly.',
+						'Dropped columns with missing or irrelevant data.',
+						'Converted text columns to strings and the “Fall 2019” season labels to a numeric year.',
+					],
+				},
+			],
+		},
+		{
+			id: 'findings',
+			title: 'Findings',
+			blocks: [
+				{
+					type: 'list',
+					items: [
+						'Midday school hours and the PM peak have the most boardings; night has the fewest.',
+						'Harvard Upper Busway has by far the most weekday midday boardings, and Wonderland Busway the most people getting off.',
+					],
+				},
+				{ type: 'figure', figure: { src: '/images/MBTA_TimePeriods.png', alt: 'Bar chart of average boardings for each time period of the day', caption: 'Average boardings by time of day.' } },
+			],
+		},
+		{
+			id: 'model',
+			title: 'Prediction model',
+			blocks: [
+				{
+					type: 'cols',
+					left: [
+						{ type: 'p', text: 'We trained a model in MATLAB’s Regression Learner on 5,000 rows to predict average boardings from the stop, time period and day type, then tested it on the other 5,000.' },
+						{ type: 'p', text: 'RMSE was 1.65 boardings. The model tracked typical stops but never predicted above about 10, so it missed the busiest outliers, possibly from sports or weather events.' },
+						{ type: 'button', label: 'Read the report (PDF)', href: '/files/MBTA_Ridership_Report.pdf' },
+					],
+					right: [
+						{ type: 'figure', figure: { src: '/images/MBTA_Prediction.png', alt: 'Scatter plot of actual and predicted average boardings for the 5,000 test rows', caption: 'Actual (blue) and predicted (red) boardings on the test rows.' } },
+					],
+				},
+			],
+		},
+	],
+};
+
+// Main six first (in project map order), then other projects.
+export const projects: Project[] = [
+	busbot,
+	meetingTimer,
+	laundryFolder,
+	bedsideBeacon,
+	whackAMole,
+	tetris,
+	dcOpf,
+	truss,
+	temperatureMonitor,
+	mbta,
+];
 
 export const getProject = (slug: string) => projects.find((p) => p.slug === slug);

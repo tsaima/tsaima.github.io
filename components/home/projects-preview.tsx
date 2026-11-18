@@ -11,12 +11,12 @@ import { projects } from '@/lib/projects';
 import { staggerContainer, fadeInScale } from '@/lib/motion';
 
 export function ProjectsPreview() {
-	const previewProjects = projects.filter((p) => !p.featured).slice(0, 3);
+	const previewProjects = projects.filter((p) => p.pinned && !p.featured).slice(0, 3);
 
 	return (
 		<section className="py-16 md:py-24">
 			<div className="container px-4">
-				<SectionHeader title="More Projects" description="Robot arms, laser links, power grids and FPGAs." />
+				<SectionHeader title="More Projects" description="A meeting timer, a robot arm and a laser link." />
 
 				<motion.div
 					variants={staggerContainer()}

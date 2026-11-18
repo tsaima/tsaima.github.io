@@ -7,20 +7,20 @@ import { SectionHeader } from '@/components/ui/section-header';
 import { projects } from '@/lib/projects';
 
 // Schematic-style map: Maxwell is the IC in the middle, each project is a part wired to one of its pins.
-// Hardware projects connect on the left, software on the right. Every block links to its project page.
+// The six main projects, three on each side of the chip. Every block links to its project page.
 
 const short: Record<string, string> = {
 	busbot: '2026–27',
 	'laundry-folder': 'SP26',
 	'bedside-beacon': 'FA25',
-	'dc-opf': 'FA25',
+	'meeting-timer': 'FA26',
 	'whack-a-mole': 'SP25',
 	tetris: 'FA24',
 };
 
-const hw = projects.filter((p) => p.category === 'Hardware');
-const sw = projects.filter((p) => p.category === 'Software');
-const ordered = [...hw, ...sw];
+const ordered = projects.filter((p) => p.pinned);
+const hw = ordered.slice(0, 3); // left side
+const sw = ordered.slice(3, 6); // right side
 const refdes = (slug: string) => `U${ordered.findIndex((p) => p.slug === slug) + 1}`;
 
 const PIN_Y = [130, 230, 330];
@@ -94,8 +94,6 @@ export function ProjectMap() {
 			<circle cx={428} cy={88} r={5} fill="hsl(var(--foreground) / 0.5)" />
 			<text x={500} y={218} textAnchor="middle" fontSize={20} fontWeight={700} fill="hsl(var(--foreground))">Maxwell Tsai</text>
 			<text x={500} y={242} textAnchor="middle" fontSize={12} className="font-mono" fill="hsl(var(--muted-foreground))">EE · ROBOTICS</text>
-			<text x={426} y={60} fontSize={11} className="font-mono" fill="hsl(var(--muted-foreground))">HARDWARE</text>
-			<text x={574} y={60} textAnchor="end" fontSize={11} className="font-mono" fill="hsl(var(--muted-foreground))">SOFTWARE</text>
 
 			{PIN_Y.map((py, i) => (
 				<g key={`pins-${i}`}>
