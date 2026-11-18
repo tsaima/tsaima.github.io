@@ -619,15 +619,15 @@ const meetingTimer: Project = {
 	category: 'Hardware',
 	period: 'Fall 2026',
 	status: 'Complete',
-	role: 'System design, KiCad schematic, wiring, assembly and testing',
+	role: 'System design, KiCad schematic, wiring',
 	pinned: true,
 	summary:
-		'A self-contained desk timer: a stepper motor sweeps a clock hand through the time and a tricolor LED shows the state. I did the system design, KiCad schematic, wiring and final assembly.',
+		'A self-contained desk timer: a stepper motor sweeps a clock hand through the time and a tricolor LED shows the state. I did the system design, KiCad schematic and wiring.',
 	lead: 'A desk timer for meetings. Pick a preset and start it; a stepper motor turns the clock hand once over the timer while an LED shows what it is doing.',
 	image: '/images/MeetingTimer.jpg',
 	tags: ['KiCad', 'XIAO ESP32-S3', 'MicroPython', 'Stepper motor', 'State machine'],
 	facts: [
-		['My role', 'System design, KiCad schematic, wiring, final assembly and testing'],
+		['My role', 'System design, KiCad schematic and wiring. Final assembly and testing were a team effort.'],
 		['Team', '6 (2 electrical, 2 computer, 2 mechanical engineers); senior design warm-up project'],
 		['Parts', 'Seeed XIAO ESP32-S3, L293D driver, 28BYJ-48 stepper, two buttons, tricolor LED'],
 		['Tools', 'KiCad, VS Code with MicroPico'],
@@ -778,7 +778,7 @@ const truss: Project = {
 	category: 'Software',
 	period: 'Fall 2024',
 	status: 'Complete',
-	role: 'Team of 3: MATLAB truss analysis and design',
+	role: 'Wrote the MATLAB simulation used to compare our designs',
 	summary:
 		'A MATLAB truss solver used to design an acrylic truss for a 32 oz load. Rebalancing member lengths raised the predicted failure load from 38.6 to 47.1 oz.',
 	lead: 'A MATLAB program that solves every member force in a truss and predicts where it fails, used to design an acrylic truss for a 32 oz load.',
@@ -786,7 +786,7 @@ const truss: Project = {
 	tags: ['MATLAB', 'Statics', 'Linear algebra'],
 	facts: [
 		['Course', 'EK301 Engineering Mechanics 1'],
-		['Team', '3'],
+		['Team', '3; I wrote the MATLAB simulation used to compare our designs'],
 		['Result', 'Predicted max load 47.1 ± 1.7 oz at a cost of $219'],
 	],
 	hero: {
