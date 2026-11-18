@@ -115,7 +115,7 @@ const busbot: Project = {
 				{
 					type: 'cols',
 					left: [
-						{ type: 'p', text: 'The base drove toward a box 100 cm away on battery power. For testing in the crowded lab we lowered the stop threshold from 40 cm to 30 cm, so it would not trigger on nearby objects, especially while turning.' },
+						{ type: 'p', text: 'The base drove toward a box 100 cm away on battery power. For testing in the crowded lab we lowered the stop threshold from 40 cm to 20 cm, so it would not trigger on nearby objects, especially while turning.' },
 						{
 							type: 'table',
 							caption: 'November 15, 2026.',
@@ -125,7 +125,6 @@ const busbot: Project = {
 							rows: [
 								['Stopping gap, tape measure', '20 cm'],
 								['Stopping gap, encoder', '24 cm'],
-								['Travel after detection', 'About 10 cm'],
 							],
 						},
 						{ type: 'p', text: 'Encoder and tape agree within 4 cm. The base drifted slightly to one side, likely because the two motors run on different drivers.' },
