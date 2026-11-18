@@ -115,19 +115,8 @@ const busbot: Project = {
 				{
 					type: 'cols',
 					left: [
-						{ type: 'p', text: 'The base drove toward a box 100 cm away on battery power. For testing in the crowded lab we lowered the stop threshold from 40 cm to 20 cm, so it would not trigger on nearby objects, especially while turning.' },
-						{
-							type: 'table',
-							caption: 'November 15, 2026.',
-							head: ['Measurement', 'Value'],
-							rowHeaders: true,
-							numeric: [1],
-							rows: [
-								['Stopping gap, tape measure', '20 cm'],
-								['Stopping gap, encoder', '24 cm'],
-							],
-						},
-						{ type: 'p', text: 'Encoder and tape agree within 4 cm. The base drifted slightly to one side, likely because the two motors run on different drivers.' },
+						{ type: 'p', text: 'The base drove on battery power toward a box about 1 m away. For testing in the crowded lab we lowered the stop threshold from 40 cm to 20 cm, so it would not trigger on nearby objects, especially while turning.' },
+						{ type: 'p', text: 'It stopped roughly 20 cm from the box. We did not measure the start position or the stopping gap precisely. The base drifted slightly to one side, likely because the two motors run on different drivers.' },
 					],
 					right: [
 						{ type: 'video', src: '/videos/BusBot_SystemIntegration.mp4', label: 'Video of the BusBot base driving toward a box and stopping', caption: 'The floor test.' },
