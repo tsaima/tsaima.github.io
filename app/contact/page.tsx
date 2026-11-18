@@ -13,9 +13,9 @@ export default function ContactPage() {
 		{ icon: <MapPin className="h-5 w-5 text-primary" />, label: 'Location', value: 'Boston, MA · open to relocation' },
 	];
 	return (
-		<div className="py-16 md:py-24">
-			<div className="container max-w-3xl">
-				<h1 className="text-4xl font-bold mb-4">Contact</h1>
+		<div className="pb-4">
+			<div>
+				<h1 className="text-3xl font-bold mb-4">Contact</h1>
 				<p className="text-lg text-muted-foreground mb-10">
 					I am looking for full-time engineering roles starting in 2027 and am open to relocating. Email is the fastest way to reach me.
 				</p>

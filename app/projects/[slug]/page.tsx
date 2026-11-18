@@ -29,8 +29,8 @@ export default async function ProjectPage({ params }: { params: Params }) {
 	const counter: Counter = { fig: 0, tab: 0 };
 
 	return (
-		<article className="py-16 md:py-24">
-			<div className="container max-w-5xl">
+		<article className="pb-4">
+			<div>
 				<Link href="/projects/" className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-8">
 					<ArrowLeft className="mr-2 h-4 w-4" /> All projects
 				</Link>
@@ -39,7 +39,7 @@ export default async function ProjectPage({ params }: { params: Params }) {
 					<p className="text-sm uppercase tracking-wide text-primary mb-2">
 						{project.category} project · {project.period}
 					</p>
-					<h1 className="text-4xl md:text-5xl font-bold mb-4">{project.title}</h1>
+					<h1 className="text-3xl md:text-3xl font-bold mb-4">{project.title}</h1>
 					<p className="text-lg md:text-xl text-muted-foreground max-w-3xl">{project.lead}</p>
 					<div className="flex flex-wrap gap-2 mt-5">
 						{project.tags.map((tag) => (

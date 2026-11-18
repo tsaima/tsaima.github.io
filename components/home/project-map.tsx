@@ -152,10 +152,10 @@ export function ProjectMap() {
 	);
 
 	return (
-		<section className="py-16 md:py-24 pcb-grid">
-			<div className="container px-4">
-				<SectionHeader title="Project Map" description="Every project, wired to the engineer who built it. Pick a part to open its page." />
-				<div className="mt-6 rounded-xl border bg-background/60 p-4 md:p-8">
+		<section className="mb-14">
+			<div>
+				<SectionHeader title="Project Map" description="The six main projects, wired to the engineer who built them. Pick a part to open its page." />
+				<div className="mt-4 rounded-lg border bg-card p-4 md:p-6 pcb-grid">
 					{desktop}
 					{mobile}
 				</div>

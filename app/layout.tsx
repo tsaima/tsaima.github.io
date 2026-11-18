@@ -1,13 +1,11 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 
 import { ThemeProvider } from '@/components/theme-provider';
-import { Navbar } from '@/components/layout/navbar';
+import { SiteHeader } from '@/components/layout/site-header';
+import { Sidebar } from '@/components/layout/sidebar';
 import { Footer } from '@/components/layout/footer';
 import { siteConfig } from '@/lib/constants';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
 	title: siteConfig.title,
@@ -21,11 +19,14 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en" suppressHydrationWarning>
-			<body className={inter.className}>
+			<body>
 				<ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-					<div className="relative min-h-screen flex flex-col">
-						<Navbar />
-						<main className="flex-grow pt-16">{children}</main>
+					<div className="min-h-screen flex flex-col">
+						<SiteHeader />
+						<div className="flex flex-col lg:flex-row gap-8 w-full max-w-[1280px] mx-auto px-4 md:px-8 pt-8 flex-grow">
+							<Sidebar />
+							<main id="content" className="flex-1 min-w-0">{children}</main>
+						</div>
 						<Footer />
 					</div>
 				</ThemeProvider>

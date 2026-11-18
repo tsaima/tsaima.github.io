@@ -12,16 +12,16 @@ import { fadeIn, staggerContainer } from '@/lib/motion';
 
 export default function AboutPage() {
 	return (
-		<div className="py-16 md:py-24">
-			<div className="container">
+		<div className="pb-4">
+			<div>
 				<motion.div
 					variants={staggerContainer()}
 					initial="hidden"
 					animate="show"
-					className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+					className="max-w-3xl"
 				>
 					<motion.div variants={fadeIn('right', 0.3)} className="space-y-6">
-						<h1 className="text-4xl font-bold">About Me</h1>
+						<h1 className="text-3xl font-bold">About Me</h1>
 						<p className="text-lg text-muted-foreground">{intro}</p>
 						<dl className="rounded-lg border bg-card divide-y">
 							{facts.map((f) => (
@@ -42,12 +42,9 @@ export default function AboutPage() {
 						</div>
 					</motion.div>
 
-					<motion.div variants={fadeIn('left', 0.3)} className="relative w-full max-w-sm mx-auto aspect-[4/5] rounded-lg overflow-hidden border">
-						<img src="/images/headshot.jpg" alt="Maxwell Tsai" className="h-full w-full object-cover object-top" />
-					</motion.div>
 				</motion.div>
 
-				<motion.section variants={fadeIn('up', 0.2)} initial="hidden" whileInView="show" viewport={{ once: true }} className="mt-24">
+				<motion.section variants={fadeIn('up', 0.2)} initial="hidden" whileInView="show" viewport={{ once: true }} className="mt-16">
 					<h2 className="section-title">Education</h2>
 					{education.map((e) => (
 						<Card key={e.institution} className="card-gradient">
@@ -71,7 +68,7 @@ export default function AboutPage() {
 				<motion.section variants={fadeIn('up', 0.2)} initial="hidden" whileInView="show" viewport={{ once: true }} className="mt-20">
 					<h2 className="section-title">Skills</h2>
 					<p className="text-muted-foreground mb-6">Tools and methods I have used in the projects on this site.</p>
-					<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+					<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
 						{skillGroups.map((g) => (
 							<Card key={g.title}>
 								<CardContent className="p-6">

@@ -38,6 +38,7 @@ export type Project = {
 	status: string;
 	role: string;
 	summary: string; // one or two sentences for the project card
+	blurb?: string; // one short line for the home page part cards
 	lead: string; // opening line on the project page
 	image?: string; // card image (falls back to a title card)
 	tags: string[];
@@ -50,6 +51,7 @@ export type Project = {
 
 const busbot: Project = {
 	slug: 'busbot',
+	blurb: 'Robot that collects dishes in dishwasher racks. I lead sensor integration.',
 	pinned: true,
 	title: 'BusBot',
 	category: 'Hardware',
@@ -303,6 +305,7 @@ const busbot: Project = {
 
 const laundryFolder: Project = {
 	slug: 'laundry-folder',
+	blurb: 'Three-joint arm that folds a shirt. Only electrical engineer on the team.',
 	pinned: true,
 	title: 'Laundry Folder',
 	category: 'Hardware',
@@ -371,6 +374,7 @@ const laundryFolder: Project = {
 
 const bedsideBeacon: Project = {
 	slug: 'bedside-beacon',
+	blurb: 'Patient call system that sends a typed message across the room on a laser.',
 	pinned: true,
 	title: 'Bedside Beacon',
 	category: 'Hardware',
@@ -532,6 +536,7 @@ const dcOpf: Project = {
 
 const whackAMole: Project = {
 	slug: 'whack-a-mole',
+	blurb: 'Reaction game in Verilog on an FPGA: eight LEDs, eight switches.',
 	pinned: true,
 	title: 'Whack-a-Mole',
 	category: 'Software',
@@ -580,6 +585,7 @@ const whackAMole: Project = {
 
 const tetris: Project = {
 	slug: 'tetris',
+	blurb: 'Team Tetris variant in Java with score calculation in C++.',
 	pinned: true,
 	title: 'Tetris for Android',
 	category: 'Software',
@@ -615,6 +621,7 @@ const tetris: Project = {
 
 const meetingTimer: Project = {
 	slug: 'meeting-timer',
+	blurb: 'Stepper-driven desk timer. System design, KiCad schematic and wiring.',
 	title: 'Meeting Timer',
 	category: 'Hardware',
 	period: 'Fall 2026',
@@ -916,10 +923,21 @@ export const projects: Project[] = [
 	bedsideBeacon,
 	whackAMole,
 	tetris,
+	temperatureMonitor,
 	dcOpf,
 	truss,
-	temperatureMonitor,
 	mbta,
 ];
+
+// Reference designator, like a part on a schematic: U1 is the first project.
+export const refdes = (slug: string) => `U${projects.findIndex((p) => p.slug === slug) + 1}`;
+
+// Short term code for compact labels: 'Fall 2026' -> 'FA26'.
+export const termCode = (p: Project) => {
+	if (p.slug === 'busbot') return '2026–27';
+	const m = p.period.match(/(Fall|Spring|Summer)\s+(\d{4})/);
+	if (!m) return p.period;
+	return { Fall: 'FA', Spring: 'SP', Summer: 'SU' }[m[1] as 'Fall' | 'Spring' | 'Summer'] + m[2].slice(2);
+};
 
 export const getProject = (slug: string) => projects.find((p) => p.slug === slug);

@@ -10,17 +10,17 @@ import { fadeIn, staggerContainer } from '@/lib/motion';
 
 export default function ExperiencePage() {
 	return (
-		<div className="py-16 md:py-24">
-			<div className="container">
+		<div className="pb-4">
+			<div>
 				<motion.div
 					variants={staggerContainer()}
 					initial="hidden"
 					animate="show"
-					className="max-w-3xl mx-auto"
+					className="max-w-3xl"
 				>
 					<motion.h1
 						variants={fadeIn('down', 0.2)}
-						className="text-4xl font-bold mb-6"
+						className="text-3xl font-bold mb-6"
 					>
 						Professional Experience
 					</motion.h1>
