@@ -64,7 +64,7 @@ const busbot: Project = {
 		['My role', 'Sensor integration lead: ultrasonic sensors, battery monitor, wheel encoders. Team lead for the first two months.'],
 		['Team', '6 (2 electrical, 2 computer, 2 mechanical engineers)'],
 		['Skills used', 'C, ESP-IDF, ESP32-S3, I2C, PWM motor control, system integration, test planning, power budgeting'],
-		['Status', 'Driving base runs on battery and stops for obstacles; Jetson and LiDAR on battery power. Circuit board next.'],
+		['Status', 'Driving base runs on battery and stops for obstacles. Circuit board next.'],
 	],
 	hero: {
 		type: 'figure',
@@ -79,15 +79,15 @@ const busbot: Project = {
 			id: 'system',
 			title: 'System overview',
 			blocks: [
-				{ type: 'p', text: 'Competing robots cost $10,000 to $16,000 and bring back one unsorted tub. BusBot carries the racks that go straight into a commercial dishwasher, so sorting happens at the table. Our parts budget is $1,000.' },
-				{ type: 'p', text: 'We surveyed 25 diners at the BU student union before setting requirements. Sixteen rated the idea 4 or 5 out of 5 for convenience, and the median diner would wait about 5 minutes before carrying dishes back themselves. That wait time set our speed and coverage targets.' },
+				{ type: 'p', text: 'Competing robots cost $10,000 to $16,000 and bring back one unsorted tub. BusBot carries racks that go straight into a commercial dishwasher, so sorting happens at the table. Parts budget: $1,000.' },
+				{ type: 'p', text: 'In our survey of 25 diners, 16 rated the idea 4 or 5 out of 5, and the median diner would wait about 5 minutes. That set our speed and coverage targets.' },
 				{
 					type: 'table',
 					caption: 'Subsystems and owners.',
 					head: ['Subsystem', 'What it does', 'Owner'],
 					mine: [0],
 					rows: [
-						['Sensor integration', 'Ultrasonic obstacle sensing, battery voltage and current monitor, and wheel encoders on the ESP32-S3', 'Me'],
+						['Sensor integration', 'Ultrasonic sensing, battery monitor and wheel encoders on the ESP32-S3', 'Me'],
 						['Power', 'Battery, protection, 12 V and 5 V rails', 'Teammate'],
 						['Navigation', 'LiDAR mapping on the Jetson Orin Nano', 'Teammate'],
 						['Request interface', 'QR code request server and table queue', 'Teammate'],
@@ -95,21 +95,71 @@ const busbot: Project = {
 						['Storage', 'Dish racks and load sensing', 'Teammate'],
 					],
 				},
-				{ type: 'h3', text: 'Why two computers' },
-				{ type: 'p', text: 'Anything that keeps the motors safe runs on the ESP32-S3: motor PWM, ultrasonic sensors, wheel encoders. Mapping, the camera and the request server run on the Jetson. The two talk over a simple text protocol on UART. The split means a slow or crashed navigation process can never delay a stop command.' },
+				{ type: 'p', text: '**Why two computers:** safety tasks (motor PWM, ultrasonic, encoders) run on the ESP32-S3; mapping, the camera and the request server run on the Jetson. They talk over UART, so a stalled Jetson can never delay a stop.' },
+			],
+		},
+		{
+			id: 'integration',
+			title: 'System integration',
+			blocks: [
+				{ type: 'p', text: 'Teammates built the chassis, drivetrain and a temporary electronics box. I drew the wiring diagram, wrote the integration firmware, and powered the Jetson and LiDAR from the battery.' },
+				{
+					type: 'figure',
+					figure: {
+						src: '/images/BusBot_SystemIntegration_Diagram.png',
+						alt: 'Hand-drawn system integration diagram: battery, rocker switch, 20 A fuse and voltage/current monitor feeding a 12 to 5 V buck for the ESP32, a 12 to 19 V boost for the Jetson, the LiDAR and two motor drivers; the ESP32 reads the ultrasonic sensor and both encoders and talks to the Jetson over UART',
+						caption: 'Integration diagram. Red: 12 V power. Orange: ESP32 3.3 V. Blue: ESP32 data. Purple: Jetson data.',
+					},
+				},
+				{ type: 'h3', text: 'Floor test: straight-line obstacle stop' },
+				{
+					type: 'cols',
+					left: [
+						{ type: 'p', text: 'The base drove toward a box 100 cm away on battery power. For testing in the crowded lab we lowered the stop threshold from 40 cm to 30 cm, so it would not trigger on nearby objects, especially while turning.' },
+						{
+							type: 'table',
+							caption: 'November 15, 2026.',
+							head: ['Measurement', 'Value'],
+							rowHeaders: true,
+							numeric: [1],
+							rows: [
+								['Stopping gap, tape measure', '20 cm'],
+								['Stopping gap, encoder', '24 cm'],
+								['Travel after detection', 'About 10 cm'],
+							],
+						},
+						{ type: 'p', text: 'Encoder and tape agree within 4 cm. The base drifted slightly to one side, likely because the two motors run on different drivers.' },
+					],
+					right: [
+						{ type: 'video', src: '/videos/BusBot_SystemIntegration.mp4', label: 'Video of the BusBot base driving toward a box and stopping', caption: 'The floor test.' },
+					],
+				},
+				{ type: 'h3', text: 'Jetson and LiDAR on battery power' },
+				{
+					type: 'list',
+					items: [
+						'Tuned a 12 → 19 V boost converter for the Jetson. The LiDAR runs straight off 12 V.',
+						'Made the barrel-jack leads and bench-tested each load behind a 2 A fuse before wiring it in.',
+						"Result: the Jetson boots and the team's LiDAR map displays in ROS 2, all on battery.",
+					],
+				},
+				{
+					type: 'figures',
+					figures: [
+						{ src: '/images/BusBot_Navigation.jpg', alt: 'The BusBot base on a lab bench next to the Jetson Orin Nano and SICK LiDAR, with a monitor showing the LiDAR scan in ROS 2', caption: 'LiDAR scan on the monitor, running from the robot battery.' },
+						{ src: '/images/BusBot_RearView.jpg', alt: 'Rear of the BusBot base with labels for the 20 A fuse, the 2 A inline fuses, the test QR code, motor 1 and wheel 1', caption: 'Rear: 20 A main fuse, inline fuses for the Jetson and LiDAR, test QR code.' },
+					],
+				},
 			],
 		},
 		{
 			id: 'sensors',
-			title: 'Sensor integration',
+			title: 'Ultrasonic obstacle detection',
 			blocks: [
-				{ type: 'p', text: 'Every sensor that reports to the ESP32-S3 is mine to wire, read and test. So far that is the ultrasonic sensors, the battery monitor and the wheel encoders.' },
-				{ type: 'h3', text: 'Ultrasonic obstacle detection' },
-				{ type: 'p', text: 'The LiDAR we received sees 276°, which leaves a blind spot behind the robot. Ultrasonic sensors cover it, and they also act as a last line of defense that does not depend on the navigation computer.' },
-				{ type: 'p', text: 'The requirement is to stop with 20 cm of clearance left. I worked backward from that to the distance at which the sensor has to trigger.' },
+				{ type: 'p', text: 'The LiDAR sees 276°, leaving a blind spot behind the robot. Ultrasonic sensors cover it and keep working if the Jetson stalls. Working backward from the 20 cm clearance requirement gives a 40 cm trigger.' },
 				{
 					type: 'budget',
-					caption: 'Stop-distance budget. The four add up to 39.5 cm, so the firmware brakes at 40 cm.',
+					caption: 'Stop-distance budget: 39.5 cm, so the firmware brakes at 40 cm.',
 					segments: [
 						{ value: '20 cm', label: 'Required clearance' },
 						{ value: '5 cm', label: 'Reaction: 0.1 s at 0.5 m/s' },
@@ -122,11 +172,9 @@ const busbot: Project = {
 				{
 					type: 'list',
 					items: [
-						'Written in C with ESP-IDF for the ESP32-S3.',
-						'Pings the sensor every 100 ms and brakes the motor when a reading falls to 40 cm or less.',
-						'Holds the stop until the obstacle is past 45 cm. The 5 cm gap keeps the motor from chattering on and off at the threshold.',
-						'Stops the motor if the sensor stops returning valid readings.',
-						"Reads the motor's quadrature encoder for speed feedback.",
+						'C with ESP-IDF, pinging every 100 ms.',
+						'Brakes at 40 cm or less and resumes past 45 cm. The 5 cm gap stops on/off chatter at the threshold.',
+						'Stops the motor if valid readings stop coming in.',
 					],
 				},
 				{ type: 'h3', text: 'Bench results' },
@@ -135,16 +183,17 @@ const busbot: Project = {
 					left: [
 						{
 							type: 'table',
-							caption: 'Obstacle detection tests, November 10, 2026, drive motor on a 12 V supply.',
+							caption: 'November 10, 2026, motor on a 12 V supply.',
 							head: ['Parameter', 'Limit', 'Measured', 'Result'],
 							rows: [
-								['Distance reading at 20 cm', '±2 cm', '20.2 cm', 'Pass'],
-								['Distance reading at 40 cm', '±2 cm', '38.6 cm', 'Pass'],
-								['Distance reading at 80 cm', '±2 cm', '50.6 cm', 'Fail'],
+								['Reading at 20 cm', '±2 cm', '20.2 cm', 'Pass'],
+								['Reading at 40 cm', '±2 cm', '38.6 cm', 'Pass'],
+								['Reading at 80 cm', '±2 cm', '50.6 cm', 'Fail'],
 								['Detection to brake command', '0.10 s max', 'Within limit', 'Pass'],
-								['Holds stop at 42 cm, restarts when clear', '5 of 5 trials', '5 of 5', 'Pass'],
+								['Stop and restart', '5 of 5', '5 of 5', 'Pass'],
 							],
 						},
+						{ type: 'p', text: 'Accurate where the stop decision is made; under-reads at 80 cm.' },
 					],
 					right: [
 						{
@@ -152,24 +201,28 @@ const busbot: Project = {
 							figure: {
 								src: '/images/BusBot_UltrasonicTest_Fixture.jpg',
 								alt: 'Bench fixture for the ultrasonic obstacle test: sensor, ESP32-S3, motor driver and gearmotor on a 12 V supply',
-								caption: 'Test fixture: ultrasonic sensor, ESP32-S3, motor driver and gearmotor on a bench supply.',
+								caption: 'Bench test fixture.',
 							},
 						},
 					],
 				},
-				{ type: 'p', text: 'The sensor is accurate where the stop decision is made, but it under-reads badly at 80 cm. That does not affect the 40 cm stop, but it does matter for slowing down early.' },
-				{ type: 'h3', text: 'Battery voltage and current monitor' },
+			],
+		},
+		{
+			id: 'power',
+			title: 'Power: battery monitor and budget',
+			blocks: [
+				{ type: 'p', text: "Power belongs to the team's other electrical engineer. My parts were the battery monitor and the power budget." },
+				{ type: 'h3', text: 'Battery monitor' },
 				{
 					type: 'cols',
 					left: [
-						{ type: 'p', text: 'The monitor sits in the power front end, after the 20 A fuse and the emergency stop that doubles as the main switch.' },
 						{
 							type: 'list',
 							items: [
 								'An INA226 measures battery voltage and current across a 2 mΩ shunt and reports to the ESP32-S3 over I2C.',
-								'Voltage tells the robot when to return to its dock before the battery runs low.',
-								'Current shows how much the motors draw under load, which checks the power budget against reality.',
-								"I verified its readings against a multimeter and the bench supply's display with the motor running, and all three agreed.",
+								'Voltage tells the robot when to recharge; current checks the budget against real draw.',
+								'Readings matched a multimeter and the bench supply with the motor running.',
 							],
 						},
 					],
@@ -179,100 +232,12 @@ const busbot: Project = {
 							figure: {
 								src: '/images/BusBot_FrontEnd_CircuitDiagram.png',
 								alt: 'Circuit diagram of the BusBot power front end: battery, fuse, emergency stop, and INA226 battery monitor reporting to the ESP32-S3',
-								caption: 'Power front end with battery monitoring.',
+								caption: 'Power front end with the battery monitor.',
 							},
 						},
 					],
 				},
-			],
-		},
-		{
-			id: 'integration',
-			title: 'System integration',
-			blocks: [
-				{ type: 'p', text: 'In November we moved from separate bench demos to one robot running from its own battery. Teammates built the chassis, the drivetrain and a temporary cardboard electronics box. I drew the integration wiring diagram, wrote the integration firmware, powered the Jetson and LiDAR from the battery, and ran the first tests on the floor.' },
-				{
-					type: 'figure',
-					figure: {
-						src: '/images/BusBot_SystemIntegration_Diagram.png',
-						alt: 'Hand-drawn system integration diagram: battery, rocker switch, 20 A fuse and voltage/current monitor feeding a 12 to 5 V buck for the ESP32, a 12 to 19 V boost for the Jetson, the LiDAR and two motor drivers; the ESP32 reads the ultrasonic sensor and both encoders and talks to the Jetson over UART',
-						caption: 'System integration diagram. Red is 12 V power, orange is the ESP32 3.3 V output, blue is ESP32 data, purple is Jetson data.',
-					},
-				},
-				{ type: 'h3', text: 'Power path' },
-				{
-					type: 'list',
-					items: [
-						'12 V, 18 Ah sealed lead acid battery → rocker switch (standing in for the emergency stop) → 20 A fuse → INA226 voltage and current monitor → 12 V bus.',
-						'The 12 V bus feeds one motor driver per wheel, a 12 → 5 V buck for the ESP32-S3, the LiDAR through a 2 A fuse, and a 12 → 19 V boost for the Jetson through a 3 A fuse.',
-						'The ESP32-S3 drives both motors with PWM, reads the ultrasonic sensor and the wheel encoders, reads the INA226 over I2C, and connects to the Jetson over UART.',
-					],
-				},
-				{ type: 'h3', text: 'Straight-line obstacle stop' },
-				{ type: 'p', text: 'The first floor test drove the base in a straight line toward a box 100 cm away. For this run the firmware stopped at 30 cm or less and restarted past 35 cm. I marked the start line and the obstacle with tape, filmed the run, and read the distance traveled from the encoder over the serial monitor.' },
-				{
-					type: 'cols',
-					left: [
-						{
-							type: 'table',
-							caption: 'Straight-line obstacle stop, November 15, 2026, on battery power.',
-							head: ['Measurement', 'Value'],
-							rowHeaders: true,
-							numeric: [1],
-							rows: [
-								['Start distance to obstacle', '100 cm'],
-								['Stopping gap, tape measure', '20 cm'],
-								['Distance traveled, encoder', '76 cm'],
-								['Stopping gap, from encoder', '24 cm'],
-								['Travel from detection to standstill', 'About 10 cm'],
-							],
-						},
-						{ type: 'p', text: 'The encoder agreed with the tape measure within about 4 cm, and the base stopped right at the 20 cm clearance requirement. It drove straight with a small drift to one side. The two motors run on different drivers with the same open-loop PWM, which is the likely cause.' },
-					],
-					right: [
-						{
-							type: 'figure',
-							figure: {
-								src: '/images/BusBot_RearView.jpg',
-								alt: 'Rear of the BusBot base with labels for the 20 A fuse, the 2 A inline fuses, the test QR code, motor 1 and wheel 1',
-								caption: 'Rear of the base: the 20 A main fuse, the inline fuses for the Jetson and LiDAR, and a test QR code.',
-							},
-						},
-					],
-				},
-				{ type: 'h3', text: 'Jetson and LiDAR on battery power' },
-				{
-					type: 'cols',
-					left: [
-						{
-							type: 'list',
-							items: [
-								'The Jetson Orin Nano needs 19 V, so I tuned a 12 → 19 V boost converter and checked its output with a multimeter.',
-								'The SICK picoScan150 LiDAR runs straight from the 12 V bus.',
-								'I made the barrel-jack leads for both and checked their polarity before connecting anything.',
-								'I bench-tested each one from the battery behind a 2 A fuse before wiring it into the robot.',
-								"Result: the Jetson boots from the boost converter, and the team's LiDAR mapping in ROS 2 displays correctly with everything on battery power.",
-							],
-						},
-					],
-					right: [
-						{
-							type: 'figure',
-							figure: {
-								src: '/images/BusBot_Navigation.jpg',
-								alt: 'The BusBot base on a lab bench next to the Jetson Orin Nano and SICK LiDAR, with a monitor showing the LiDAR scan in ROS 2',
-								caption: 'Jetson and LiDAR running from the robot battery, with the LiDAR scan on the monitor.',
-							},
-						},
-					],
-				},
-			],
-		},
-		{
-			id: 'power',
-			title: 'Power budget and battery selection',
-			blocks: [
-				{ type: 'p', text: "The power subsystem belongs to the team's other electrical engineer. My contribution was the power budget and the battery choice that came from it." },
+				{ type: 'h3', text: 'Budget and battery choice' },
 				{
 					type: 'cols',
 					left: [
@@ -282,29 +247,29 @@ const busbot: Project = {
 							head: ['', 'Lithium iron phosphate', 'Sealed lead acid (chosen)'],
 							rowHeaders: true,
 							rows: [
-								['Weight', 'About 5 lb', 'About 12 lb, which keeps the center of gravity low under a load of dishes'],
+								['Weight', 'About 5 lb', 'About 12 lb, keeps the center of gravity low'],
 								['Cost', '$75 to $200', '$20 to $60'],
-								['Lab safety', 'Needs approval', 'Sealed, no approval needed'],
-								['Charge monitoring', 'Flat voltage curve, needs a calibrated current counter', 'Voltage falls predictably as it discharges'],
+								['Lab safety', 'Needs approval', 'No approval needed'],
+								['Charge monitoring', 'Flat voltage curve', 'Voltage falls predictably'],
 							],
 						},
 					],
 					right: [
 						{
 							type: 'table',
-							caption: 'Expected average draw: 36 kg robot at 0.5 m/s, driving 75% of the time.',
+							caption: 'Expected average draw: 36 kg at 0.5 m/s, driving 75% of the time.',
 							head: ['Branch', 'Loads', 'Power'],
 							numeric: [2],
 							rows: [
-								['Drive', 'Two gearmotors at 72% duty, plus 20% for turns and starts', '20.9 W'],
-								['Compute', 'Jetson Orin Nano in 15 W mode, LiDAR, camera, converter losses', '21.1 W'],
-								['Control', 'ESP32-S3, ultrasonic sensors, load cells, encoders, IMU', '1.7 W'],
+								['Drive', 'Two gearmotors, plus 20% for turns and starts', '20.9 W'],
+								['Compute', 'Jetson (15 W mode), LiDAR, camera, losses', '21.1 W'],
+								['Control', 'ESP32-S3 and its sensors', '1.7 W'],
 								['**Total**', '3.6 A from the battery', '**43.7 W**'],
 							],
 						},
 					],
 				},
-				{ type: 'p', text: "The requirement is 2.5 hours per charge, counting only half of a lead acid battery's capacity as usable. An 18 Ah battery has 108 Wh usable, which gives 2.47 hours at 43.7 W. That is just short, and a worst case with the Jetson at full power drops to 1.7 hours. The 18 Ah battery is what we are testing with now. The budget says the final robot needs 22 Ah or more, and I will confirm that with a measured discharge test before we buy." },
+				{ type: 'p', text: 'The target is 2.5 hours on half the battery\'s capacity. The 18 Ah test battery gives 2.47 hours, so the final robot needs 22 Ah or more, pending a discharge test.' },
 			],
 		},
 		{
@@ -313,17 +278,16 @@ const busbot: Project = {
 			blocks: [
 				{
 					type: 'table',
-					caption: 'Problems found so far in my part of the robot, and what each one changed.',
-					head: ['Problem', 'What I found', 'What changed'],
+					head: ['Problem', 'Cause', 'Change'],
 					rows: [
-						['LiDAR blind spot', 'The LiDAR we received sees 276°, not a full circle, so the robot cannot see directly behind itself.', 'Added rear ultrasonic sensing on the ESP32-S3. It covers the blind spot and still works if the navigation computer stalls.'],
-						['Power budget grew', 'My first estimate was about 35 W, with a Raspberry Pi 5 as the navigation computer. We then got a Jetson Orin Nano dev kit from the lab. The Jetson and a few smaller added components raised the budget to 43.7 W.', 'The 18 Ah battery falls just short of 2.5 hours. The final robot needs 22 Ah or more, pending a measured discharge test.'],
-						['Ultrasonic range error', 'The sensor passed at 20 cm and 40 cm but read 50.6 cm for a target at 80 cm.', 'The 40 cm stop is unaffected. The cause is not confirmed. My working guess is the sensor itself, an old unit we reused, so the next step is to retest with a new one.'],
-						['Motor would not start with the ultrasonic running', 'With the sensor powered from 3.3 V, its old voltage divider dropped the echo signal to about 2.0 V. That is below the ESP32-S3 logic-high threshold of about 2.48 V, so no pings were read and the motor never started.', 'Removed the divider. At 3.3 V the echo signal is already safe for the ESP32-S3.'],
-						['Wrong motor driver', 'The driver we ordered, a Cytron MD20A, has one channel. We needed the two-channel MDD20A.', 'Used a single-channel HW-039 from the lab for the second motor, after confirming it gave the same motor speed at full PWM. Ordered the MDD20A for turning and the final design, since the HW-039 has no current limiting.'],
-						['Base drifts to one side', 'In the straight-line test the base pulled slightly to one side. The two motors run on different drivers with the same open-loop PWM.', 'Moving both motors to one two-channel MDD20A so they share the same drive stage.'],
-						['Boost converter wired backwards', "The boost converter's output leads were reversed and blew the 2 A fuse on the Jetson lead. The fuse did its job and nothing else was damaged.", 'Rewired the output and replaced the fuse with a 3 A fuse, the only spare available.'],
-						['Converters always on', 'The 12 → 5 V buck and the 12 → 19 V boost are not behind the switch, so they turn on whenever the battery is connected.', 'Open. Moving them behind the switch, after checking whether the Jetson tolerates having its power cut that way.'],
+						['LiDAR blind spot', 'The LiDAR covers 276°, not 360°.', 'Added rear ultrasonic sensing.'],
+						['Power budget grew', 'Moving from a Raspberry Pi 5 to a Jetson raised the estimate from about 35 W to 43.7 W.', 'Final robot needs 22 Ah or more.'],
+						['Ultrasonic range error', 'Read 50.6 cm for a target at 80 cm.', 'Retesting with a new sensor.'],
+						["Motor wouldn't start", 'At 3.3 V, the echo divider dropped the signal to about 2.0 V, below the ESP32-S3 logic threshold.', 'Removed the divider.'],
+						['Wrong motor driver', 'Received a one-channel driver instead of the two-channel MDD20A.', 'Used a lab HW-039 for the second motor; ordered the MDD20A.'],
+						['Drift to one side', 'Two different drivers on the same open-loop PWM.', 'Moving to one MDD20A.'],
+						['Boost wired backwards', 'Blew the 2 A fuse on the Jetson lead; nothing else was damaged.', 'Rewired; replaced with a 3 A fuse.'],
+						['Converters always on', 'The buck and boost bypass the switch.', 'Open: move them behind it once we confirm the Jetson tolerates a hard power cut.'],
 					],
 				},
 			],
@@ -335,12 +299,11 @@ const busbot: Project = {
 				{
 					type: 'list',
 					items: [
-						'Replace the reused ultrasonic sensor with a new one and retest across the full range, to confirm whether the old unit caused the 80 cm error.',
-						'Replace the two mismatched motor drivers with one two-channel Cytron MDD20A and rerun the straight-line test to check the drift.',
-						'Move the buck and boost converters behind the switch so the whole robot turns off together.',
-						'Replace the rocker switch with a push-button emergency stop.',
-						'Build the UART link between the Jetson and the ESP32-S3, so a QR request received by the Jetson starts the robot moving.',
-						'Turn the integration diagram into a main circuit board in KiCad. The parts list is set: the INA226, the buck and boost converters, the ESP32-S3 and the motor driver go on the board; the battery, fuse, switch, sensors and motors connect to it.',
+						'Swap in the two-channel MDD20A and rerun the straight-line test.',
+						'Put the converters behind the switch and replace it with a push-button emergency stop.',
+						'Build the UART link so a QR request on the Jetson starts the robot.',
+						'Retest the ultrasonic at 80 cm with a new sensor.',
+						'Lay out the main circuit board in KiCad from the integration diagram.',
 					],
 				},
 			],

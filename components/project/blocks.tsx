@@ -88,7 +88,7 @@ export function BlockView({ block, counter }: { block: Block; counter: Counter }
 			const n = ++counter.fig;
 			return (
 				<figure className="space-y-2">
-					<video controls preload="metadata" src={block.src} aria-label={block.label} className="w-full rounded-lg border bg-black" />
+					<video controls preload="metadata" src={block.src} aria-label={block.label} className="w-full max-h-[75vh] rounded-lg border bg-black" />
 					<figcaption className="text-sm text-muted-foreground">
 						<span className="font-semibold text-foreground">Figure {n}.</span> {block.caption}
 					</figcaption>
