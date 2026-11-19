@@ -39,27 +39,32 @@ export function Sidebar() {
 	return (
 		// On phones the profile shows on the overview only, so other pages start with their content.
 		<aside className={`${onHome ? 'flex' : 'hidden lg:flex'} flex-col gap-5 w-full lg:w-[280px] lg:shrink-0`}>
-			<img
-				src="/images/headshot-square.jpg"
-				alt="Maxwell Tsai"
-				className="w-40 lg:w-full aspect-square rounded-full object-cover border-2"
-			/>
-			<div>
-				<h1 className="text-2xl font-bold leading-tight">Maxwell Tsai</h1>
-				<p className="font-mono text-sm text-muted-foreground mt-1">EE · ROBOTICS</p>
+			{/* Phones: headshot on the left, details on the right. Laptops: stacked, like a profile sidebar. */}
+			<div className="flex flex-row lg:flex-col items-center lg:items-stretch gap-5">
+				<img
+					src="/images/headshot-square.jpg"
+					alt="Maxwell Tsai"
+					className="w-28 sm:w-36 lg:w-full shrink-0 aspect-square rounded-full object-cover border-2"
+				/>
+				<div className="flex flex-col gap-3 min-w-0">
+					<div>
+						<h1 className="text-xl lg:text-2xl font-bold leading-tight">Maxwell Tsai</h1>
+						<p className="font-mono text-xs lg:text-sm text-muted-foreground mt-1">EE · ROBOTICS</p>
+					</div>
+					<ul className="space-y-1.5 lg:space-y-2 text-[13px] lg:text-sm text-muted-foreground">
+						<li className="flex items-center gap-2"><Building2 className="h-4 w-4 shrink-0" aria-hidden="true" />Boston University ’27</li>
+						<li className="flex items-center gap-2"><MapPin className="h-4 w-4 shrink-0" aria-hidden="true" />Boston, MA · Portland, OR</li>
+						<li className="flex items-center gap-2 min-w-0">
+							<Mail className="h-4 w-4 shrink-0" aria-hidden="true" />
+							<a href={siteConfig.links.email} className="hover:text-primary truncate">{siteConfig.links.emailText}</a>
+						</li>
+						<li className="flex items-center gap-2">
+							<Linkedin className="h-4 w-4 shrink-0" aria-hidden="true" />
+							<a href={siteConfig.links.linkedin} target="_blank" rel="noreferrer" className="hover:text-primary">in/maxwelljtsai</a>
+						</li>
+					</ul>
+				</div>
 			</div>
-			<ul className="space-y-2 text-sm text-muted-foreground">
-				<li className="flex items-center gap-2"><Building2 className="h-4 w-4" aria-hidden="true" />Boston University ’27</li>
-				<li className="flex items-center gap-2"><MapPin className="h-4 w-4" aria-hidden="true" />Boston, MA · Portland, OR</li>
-				<li className="flex items-center gap-2">
-					<Mail className="h-4 w-4" aria-hidden="true" />
-					<a href={siteConfig.links.email} className="hover:text-primary">{siteConfig.links.emailText}</a>
-				</li>
-				<li className="flex items-center gap-2">
-					<Linkedin className="h-4 w-4" aria-hidden="true" />
-					<a href={siteConfig.links.linkedin} target="_blank" rel="noreferrer" className="hover:text-primary">in/maxwelljtsai</a>
-				</li>
-			</ul>
 
 			<nav aria-label="Project tree" className="hidden lg:block border-t pt-4">
 				<h2 className="font-mono text-xs font-semibold tracking-widest text-muted-foreground mb-2">PROJECT TREE</h2>

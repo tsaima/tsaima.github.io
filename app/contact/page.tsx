@@ -1,48 +1,51 @@
 import { Mail, Linkedin, MapPin, FileDown } from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { ContactForm } from '@/components/contact-form';
 import { siteConfig } from '@/lib/constants';
 
 export const metadata = { title: 'Contact | Maxwell Tsai' };
 
 export default function ContactPage() {
 	const rows = [
-		{ icon: <Mail className="h-5 w-5 text-primary" />, label: 'Email', value: siteConfig.links.emailText, href: siteConfig.links.email },
-		{ icon: <Linkedin className="h-5 w-5 text-primary" />, label: 'LinkedIn', value: 'linkedin.com/in/maxwelljtsai', href: siteConfig.links.linkedin },
-		{ icon: <MapPin className="h-5 w-5 text-primary" />, label: 'Location', value: 'Boston, MA · open to relocation' },
+		{ icon: Mail, label: 'Email', value: siteConfig.links.emailText, href: siteConfig.links.email },
+		{ icon: Linkedin, label: 'LinkedIn', value: 'linkedin.com/in/maxwelljtsai', href: siteConfig.links.linkedin },
+		{ icon: MapPin, label: 'Location', value: 'Boston, MA · open to relocation' },
 	];
+
 	return (
-		<div className="pb-4">
+		<div className="pb-4 flex flex-col gap-8">
 			<div>
-				<h1 className="text-3xl font-bold mb-4">Contact</h1>
-				<p className="text-lg text-muted-foreground mb-10">
-					I am looking for full-time engineering roles starting in 2027 and am open to relocating. Email is the fastest way to reach me.
+				<p className="font-mono text-xs tracking-widest text-[hsl(var(--pcb-light))] mb-2">CONTACT</p>
+				<h1 className="text-3xl font-bold mb-3">Get in touch</h1>
+				<p className="text-base text-muted-foreground max-w-2xl">
+					I am looking for full-time engineering roles starting in 2027. Send me a message here or email me directly.
 				</p>
-				<Card>
-					<CardContent className="p-6 divide-y">
-						{rows.map((r) => (
-							<div key={r.label} className="flex items-center gap-4 py-4 first:pt-0 last:pb-0">
-								{r.icon}
-								<div>
-									<p className="text-sm text-muted-foreground">{r.label}</p>
-									{r.href ? (
-										<a href={r.href} className="font-medium hover:text-primary" target={r.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">{r.value}</a>
-									) : (
-										<p className="font-medium">{r.value}</p>
-									)}
-								</div>
-							</div>
-						))}
-					</CardContent>
-				</Card>
-				<div className="mt-8 flex flex-wrap gap-3">
-					{siteConfig.resumes.map((r) => (
-						<Button key={r.href} variant="outline" asChild>
-							<a href={r.href} target="_blank" rel="noreferrer">{r.title} <FileDown className="ml-2 h-4 w-4" /></a>
-						</Button>
-					))}
-				</div>
+			</div>
+
+			<ContactForm />
+
+			<div className="flex flex-col sm:flex-row sm:flex-wrap gap-x-8 gap-y-3 text-sm">
+				{rows.map((r) => {
+					const Icon = r.icon;
+					return (
+						<div key={r.label} className="flex items-center gap-2 text-muted-foreground">
+							<Icon className="h-4 w-4 text-primary" aria-hidden="true" />
+							{r.href ? (
+								<a href={r.href} className="hover:text-primary" target={r.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">{r.value}</a>
+							) : (
+								<span>{r.value}</span>
+							)}
+						</div>
+					);
+				})}
+			</div>
+
+			<div className="flex flex-wrap gap-3">
+				{siteConfig.resumes.map((r) => (
+					<a key={r.href} href={r.href} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-md border px-4 py-2 text-sm hover:border-primary hover:text-primary">
+						{r.title} <FileDown className="h-4 w-4" aria-hidden="true" />
+					</a>
+				))}
 			</div>
 		</div>
 	);

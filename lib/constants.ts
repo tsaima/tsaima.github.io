@@ -20,6 +20,9 @@ export const siteConfig = {
 	links: {
 		email: 'mailto:maxwelljtsai@gmail.com',
 		emailText: 'maxwelljtsai@gmail.com',
+		// Paste your Formspree form ID here (e.g. 'xpzvqkdl') to send contact-form messages straight to your inbox.
+		// Left empty, the form opens the visitor's email app with the message filled in instead.
+		formspreeId: '',
 		linkedin: 'https://linkedin.com/in/maxwelljtsai',
 	},
 };
@@ -109,7 +112,7 @@ export const education: Education[] = [
 export const skillGroups: { title: string; skills: string[] }[] = [
 	{
 		title: 'Embedded and hardware',
-		skills: ['ESP32-S3', 'ESP-IDF', 'Arduino', 'I2C', 'PWM motor control', 'Power budgeting', 'Buck converters', 'Circuit wiring', 'Motor characterization', 'Test planning'],
+		skills: ['ESP32-S3', 'ESP-IDF', 'Arduino', 'I2C', 'PWM motor control', 'Power budgeting', 'Buck converters', 'Circuit wiring', 'Soldering', 'Motor characterization', 'Test planning'],
 	},
 	{
 		title: 'Programming',
@@ -117,6 +120,6 @@ export const skillGroups: { title: string; skills: string[] }[] = [
 	},
 	{
 		title: 'Analysis and tools',
-		skills: ['Kinematics', 'DC optimal power flow', 'Linear programming', 'Xilinx Vivado', 'Android Studio', 'Onshape', 'Laser cutting'],
+		skills: ['KiCad', 'Onshape', 'Git and GitHub', 'Xilinx Vivado', 'Android Studio', 'Kinematics', 'DC optimal power flow', 'Linear programming', 'Laser cutting', '3D printing'],
 	},
 ];
