@@ -1,4 +1,4 @@
-import { Mail, Linkedin, MapPin, FileDown } from 'lucide-react';
+import { Mail, Linkedin, FileDown } from 'lucide-react';
 
 import { ContactForm } from '@/components/contact-form';
 import { siteConfig } from '@/lib/constants';
@@ -9,17 +9,13 @@ export default function ContactPage() {
 	const rows = [
 		{ icon: Mail, label: 'Email', value: siteConfig.links.emailText, href: siteConfig.links.email },
 		{ icon: Linkedin, label: 'LinkedIn', value: 'linkedin.com/in/maxwelljtsai', href: siteConfig.links.linkedin },
-		{ icon: MapPin, label: 'Location', value: 'Boston, MA · open to relocation' },
 	];
 
 	return (
 		<div className="pb-4 flex flex-col gap-8">
 			<div>
 				<p className="font-mono text-xs tracking-widest text-[hsl(var(--pcb-light))] mb-2">CONTACT</p>
-				<h1 className="text-3xl font-bold mb-3">Get in touch</h1>
-				<p className="text-base text-muted-foreground max-w-2xl">
-					I am looking for full-time engineering roles starting in 2027. Send me a message here or email me directly.
-				</p>
+				<h1 className="text-3xl font-bold">Get in touch</h1>
 			</div>
 
 			<ContactForm />

@@ -54,7 +54,7 @@ export default function Home() {
 
 			<section aria-label="Main projects">
 				<div className="flex items-baseline justify-between mb-4">
-					<h2 className="text-lg font-semibold">Placed parts</h2>
+					<h2 className="text-lg font-semibold">Projects</h2>
 					<Link href="/projects/" className="text-sm text-muted-foreground hover:text-primary">All {projects.length} projects →</Link>
 				</div>
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-x-7 gap-y-4 px-[11px]">
