@@ -51,7 +51,19 @@ export type Experience = {
 	layers?: { title: string; label: string; detail: string }[];
 };
 
+// Newest first.
 export const experiences: Experience[] = [
+	{
+		title: 'Grader, Electric Energy Systems',
+		company: 'Boston University Dept. of Electrical and Computer Engineering',
+		location: 'Boston, MA',
+		startDate: 'Sep 2026',
+		endDate: 'Present',
+		description: [
+			'Grade homework and exams, evaluating student work on power flow, three-phase systems and grid analysis, and give written feedback on errors in method and reasoning.',
+		],
+		technologies: ['Power flow', 'Three-phase systems', 'Grid analysis'],
+	},
 	{
 		title: 'Data Science and Analytics Intern',
 		company: 'Intel',
@@ -66,6 +78,29 @@ export const experiences: Experience[] = [
 		technologies: ['JMP Scripting Language', 'JMP', 'Ridge regression', 'GitHub Copilot'],
 	},
 	{
+		title: 'Teaching Assistant, Logic Design',
+		company: 'Boston University Dept. of Electrical and Computer Engineering',
+		location: 'Boston, MA',
+		startDate: 'Jan 2026',
+		endDate: 'May 2026',
+		description: [
+			'Led Verilog FPGA lab sections in Vivado and debugged student designs.',
+			'Graded homework and exams for 80+ students.',
+		],
+		technologies: ['Verilog', 'FPGA', 'Xilinx Vivado'],
+	},
+	{
+		title: 'Undergraduate Research Assistant',
+		company: 'SemeterLab at Boston University',
+		location: 'Boston, MA',
+		startDate: 'Sep 2025',
+		endDate: 'Dec 2025',
+		description: [
+			'Developed an Android app logging Global Navigation Satellite System (GNSS) measurements for real-time ionospheric monitoring, tracking 15+ satellites and exporting carrier-to-noise density (C/N0) data.',
+		],
+		technologies: ['Android', 'GNSS', 'Ionospheric monitoring'],
+	},
+	{
 		title: 'Analog Product Development & Test Engineer Intern',
 		company: 'Intel',
 		location: 'Hillsboro, OR',
@@ -74,7 +109,7 @@ export const experiences: Experience[] = [
 		summary:
 			'Analog product development engineers were scripting lab tests with each instrument\'s own commands. I built a common Python layer so the same test code drives any of the lab\'s instruments, including from remote desktop.',
 		description: [
-			'Architected an object-oriented Python API that abstracts 4 lab instruments, including a bit error rate tester, as generalized scopes, clocks and sources, so engineers test with common functions instead of instrument-specific commands.',
+			'Designed an object-oriented Python API that abstracts 4 lab instruments, including a bit error rate tester, as generalized scopes, clocks and sources, so engineers test with common functions instead of instrument-specific commands.',
 			'Automated IEEE 488.2 SCPI communication over GPIB with PyVISA to configure instruments and transfer measurement data.',
 			'Refactored more than 7,000 lines of Python to PEP 8 standards and wrote about 100 unit tests covering the API functions for each instrument.',
 		],

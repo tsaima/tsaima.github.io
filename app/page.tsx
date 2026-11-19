@@ -12,17 +12,24 @@ const titleBlock = [
 	['REV', '2026.11'],
 ];
 
-// Newest first; letters count up like drawing revisions.
-const revisions = [
-	{ rev: 'C', title: 'Senior design: BusBot', sub: 'Boston University · sensor integration lead', date: '2026–27', href: '/projects/busbot/' },
-	...experiences.map((e, i) => ({
-		rev: String.fromCharCode(66 - i), // B, A
+// 'May 2026'–'Aug 2026' -> 'May–Aug 2026'; different years stay whole.
+const dateRange = (start: string, end: string) => {
+	const [sm, sy] = start.split(' ');
+	const ey = end.split(' ')[1];
+	return sy === ey ? `${sm}–${end}` : `${start}–${end}`;
+};
+
+// Newest first; letters count up like drawing revisions, so the oldest entry is rev A.
+const rows = [
+	{ title: 'Senior design: BusBot', sub: 'Boston University · sensor integration lead', date: '2026–27', href: '/projects/busbot/' },
+	...experiences.map((e) => ({
 		title: e.title,
 		sub: `${e.company}${e.location ? ` · ${e.location}` : ''}`,
-		date: `${e.startDate.replace(/ \d{4}$/, '')}–${e.endDate}`,
+		date: dateRange(e.startDate, e.endDate),
 		href: '/experience/',
 	})),
 ];
+const revisions = rows.map((r, i) => ({ ...r, rev: String.fromCharCode(65 + rows.length - 1 - i) }));
 
 export default function Home() {
 	const pinned = projects.filter((p) => p.pinned);

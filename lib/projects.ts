@@ -55,7 +55,7 @@ const busbot: Project = {
 	pinned: true,
 	title: 'BusBot',
 	category: 'Hardware',
-	period: 'Summer 2026 to Spring 2027, in progress',
+	period: 'May 2026 to Spring 2027, in progress',
 	status: 'In progress',
 	role: 'Sensor integration lead',
 	featured: true,
