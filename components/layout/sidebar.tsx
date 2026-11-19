@@ -19,10 +19,10 @@ const folders: { name: string; files: { slug: string; file: string }[] }[] = [
 			{ slug: 'temperature-monitor', file: 'temp-monitor.sch' },
 		],
 	},
-	{ name: 'digital/', files: [{ slug: 'whack-a-mole', file: 'whack-a-mole.v' }] },
 	{
 		name: 'software/',
 		files: [
+			{ slug: 'whack-a-mole', file: 'whack-a-mole.v' },
 			{ slug: 'tetris', file: 'tetris.java' },
 			{ slug: 'dc-opf', file: 'grid-congestion.m' },
 			{ slug: 'truss', file: 'truss.m' },
