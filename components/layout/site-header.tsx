@@ -1,87 +1,62 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { BookOpen, BriefcaseBusiness, Cpu, Mail, User } from 'lucide-react';
 
-import { siteConfig, experiences } from '@/lib/constants';
-import { projects } from '@/lib/projects';
-
-const isActive = (pathname: string, href: string) =>
-	href === '/' ? pathname === '/' : pathname.replace(/\/$/, '').startsWith(href.replace(/\/$/, ''));
-
-const tabs = [
-	{ title: 'Overview', href: '/', icon: BookOpen },
-	{ title: 'About', href: '/about/', icon: User },
-	{ title: 'Experience', href: '/experience/', icon: BriefcaseBusiness, count: experiences.length },
-	{ title: 'Projects', href: '/projects/', icon: Cpu, count: projects.length },
-	{ title: 'Contact', href: '/contact/', icon: Mail },
-];
-
-function ChipIcon() {
-	return (
-		<svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true">
-			<rect x="5" y="5" width="18" height="18" rx="2" fill="none" stroke="hsl(var(--primary))" strokeWidth="1.6" />
-			<path
-				d="M9 2v3M14 2v3M19 2v3M9 23v3M14 23v3M19 23v3M2 9h3M2 14h3M2 19h3M23 9h3M23 14h3M23 19h3"
-				stroke="hsl(var(--pcb))"
-				strokeWidth="1.6"
-			/>
-		</svg>
-	);
-}
+import { siteConfig } from '@/lib/constants';
 
 export function SiteHeader() {
 	const pathname = usePathname();
+	const onHome = pathname === '/';
+	const [active, setActive] = useState<string | null>(null);
+
+	// On the home page, mark the section currently in view.
+	useEffect(() => {
+		if (!onHome) return setActive(null);
+		// The intro is watched too, so no link is marked while it fills the screen.
+		const sections = ['intro', ...siteConfig.mainNav.map((n) => n.id)]
+			.map((id) => document.getElementById(id))
+			.filter((el): el is HTMLElement => !!el);
+		const io = new IntersectionObserver(
+			(entries) => {
+				for (const e of entries) if (e.isIntersecting) setActive(e.target.id === 'intro' ? null : e.target.id);
+			},
+			{ rootMargin: '-45% 0px -50% 0px' },
+		);
+		sections.forEach((s) => io.observe(s));
+		return () => io.disconnect();
+	}, [onHome]);
 
 	return (
-		<header className="bg-card/95 border-b">
-			<div className="flex items-center justify-between gap-4 flex-wrap px-4 md:px-8 py-3">
-				<Link href="/" className="flex items-center gap-3 hover:no-underline">
-					<ChipIcon />
-					<span className="font-mono text-sm">
-						<span className="text-muted-foreground">maxwell-tsai /</span>{' '}
-						<strong className="font-semibold text-foreground">portfolio</strong>
-						<span className="text-muted-foreground">.pro</span>
-					</span>
+		<header className="sticky top-0 z-40 bg-background border-b">
+			<div className="mx-auto max-w-[1080px] px-5 md:px-8 flex flex-wrap items-center gap-x-8 gap-y-1 py-3 md:py-0 md:h-16">
+				<Link href="/" className="text-[15px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary transition-colors">
+					{siteConfig.name}
 				</Link>
-				<div className="flex items-center gap-2">
-					{siteConfig.resumes.map((r) => (
+				<a
+					href={siteConfig.resume}
+					target="_blank"
+					rel="noreferrer"
+					className="md:order-last ml-auto rounded-md border border-primary/70 px-3.5 py-1.5 text-sm font-medium text-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
+				>
+					Resume
+				</a>
+				<nav aria-label="Sections" className="w-full md:w-auto md:ml-auto -mx-2 md:mx-0 flex justify-between md:justify-end md:gap-1">
+					{siteConfig.mainNav.map((n) => (
 						<a
-							key={r.href}
-							href={r.href}
-							target="_blank"
-							rel="noreferrer"
-							className="text-xs sm:text-sm px-3 py-2 rounded-md border hover:border-primary hover:text-primary transition-colors"
-						>
-							{r.short}
-						</a>
-					))}
-					<img src="/images/headshot-square.jpg" alt="" className="hidden sm:block h-8 w-8 rounded-full object-cover border" />
-				</div>
-			</div>
-			<nav aria-label="Portfolio sections" className="flex gap-1 overflow-x-auto px-2 md:px-6">
-				{tabs.map((t) => {
-					const active = isActive(pathname, t.href);
-					const Icon = t.icon;
-					return (
-						<Link
-							key={t.href}
-							href={t.href}
-							aria-current={active ? 'page' : undefined}
-							className={`flex items-center gap-2 whitespace-nowrap px-3 py-3 text-sm border-b-2 transition-colors ${
-								active ? 'border-primary text-foreground font-semibold' : 'border-transparent text-muted-foreground hover:text-foreground'
+							key={n.id}
+							href={`/#${n.id}`}
+							aria-current={active === n.id ? 'location' : undefined}
+							className={`px-2 py-2 text-sm transition-colors ${
+								active === n.id ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
 							}`}
 						>
-							<Icon className="h-4 w-4" aria-hidden="true" />
-							{t.title}
-							{t.count !== undefined && (
-								<span className="font-mono text-[11px] px-2 rounded-full bg-muted text-foreground/80">{t.count}</span>
-							)}
-						</Link>
-					);
-				})}
-			</nav>
+							{n.title}
+						</a>
+					))}
+				</nav>
+			</div>
 		</header>
 	);
 }

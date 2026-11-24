@@ -1,15 +1,17 @@
 # Maxwell Tsai portfolio
 
-Personal portfolio built with Next.js, Tailwind CSS and Framer Motion, based on the
+Personal portfolio built with Next.js and Tailwind CSS, originally based on the
 [Engineering Student Portfolio](https://github.com/niladri-1/Engineering_Student_Portfolio) template by niladri-1.
 Hosted on GitHub Pages.
 
 ## Where things are
 
-- `lib/constants.ts`: name, intro, links, resumes, experience, education and skills
+- `lib/constants.ts`: name, links, the resume, experience, leadership and coursework
+- `lib/skills.ts`: tools (with their icons), Python libraries, lab equipment and methods
 - `lib/projects.ts`: every project and its page content
-- `public/images`, `public/videos`, `public/files`: images, videos, resumes and the EC417 report
-- `app/`: pages (home, about, experience, projects, project pages, contact)
+- `public/images`, `public/videos`, `public/files`: images, videos, the resume and project reports
+- `app/page.tsx`: the single scrolling home page (About, Experience, Projects, Skills, Leadership, Contact)
+- `app/projects/[slug]/page.tsx`: each project's page. `/about/`, `/experience/`, `/projects/` and `/contact/` redirect to the home page sections
 
 To add a project, add an entry to `lib/projects.ts`. Its page appears at `/projects/<slug>/`.
 

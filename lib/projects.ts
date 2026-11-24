@@ -25,7 +25,6 @@ export type Block =
 	  }
 	| { type: 'budget'; caption: string; segments: { value: string; label: string }[] }
 	| { type: 'trials'; caption: string; note: string; rows: { label: string; results: boolean[] }[] }
-	| { type: 'stopDemo' }
 	| { type: 'cols'; left: Block[]; right: Block[] };
 
 export type Section = { id?: string; title: string; blocks: Block[] };
@@ -63,11 +62,11 @@ const busbot: Project = {
 		'An autonomous robot that drives to a restaurant table on request, carries standard dishwasher racks, and returns them to staff. I am the sensor integration lead on a six-person team.',
 	lead: 'A robot that drives to a restaurant table when a diner requests it, collects dishes in standard dishwasher racks, and brings them back to staff.',
 	image: '/images/BusBot_FrontView.jpg',
-	tags: ['ESP32-S3', 'C', 'ESP-IDF', 'I2C', 'System integration', 'Power budgeting'],
+	tags: ['ESP32-S3', 'C', 'ESP-IDF', 'KiCad', 'Git', 'I2C', 'System integration', 'Power budgeting'],
 	facts: [
-		['My role', 'Sensor integration lead: ultrasonic sensors, battery monitor, wheel encoders. Team lead for the first two months.'],
+		['My role', 'Sensor integration lead: ultrasonic sensors, battery monitor, wheel encoders. Team lead for the first two months, running weekly faculty design reviews.'],
 		['Team', '6 (2 electrical, 2 computer, 2 mechanical engineers)'],
-		['Skills used', 'C, ESP-IDF, ESP32-S3, I2C, PWM motor control, system integration, test planning, power budgeting'],
+		['Skills used', 'C, ESP-IDF, ESP32-S3, KiCad, Git, I2C, PWM motor control, system integration, test planning, power budgeting'],
 		['Status', 'Driving base runs on battery and stops for obstacles. Circuit board next.'],
 	],
 	hero: {
@@ -81,74 +80,43 @@ const busbot: Project = {
 	sections: [
 		{
 			id: 'system',
-			title: 'System overview',
+			title: 'System',
 			blocks: [
-				{ type: 'p', text: 'Competing robots cost $10,000 to $16,000 and bring back one unsorted tub. BusBot carries racks that go straight into a commercial dishwasher, so sorting happens at the table. Parts budget: $1,000.' },
-				{ type: 'p', text: 'In our survey of 25 diners, 16 rated the idea 4 or 5 out of 5, and the median diner would wait about 5 minutes. That set our speed and coverage targets.' },
-				{
-					type: 'table',
-					caption: 'Subsystems and owners.',
-					head: ['Subsystem', 'What it does', 'Owner'],
-					mine: [0],
-					rows: [
-						['Sensor integration', 'Ultrasonic sensing, battery monitor and wheel encoders on the ESP32-S3', 'Me'],
-						['Power', 'Battery, protection, 12 V and 5 V rails', 'Teammate'],
-						['Navigation', 'LiDAR mapping on the Jetson Orin Nano', 'Teammate'],
-						['Request interface', 'QR code request server and table queue', 'Teammate'],
-						['Actuation', 'Drive motors, wheels and chassis', 'Teammate'],
-						['Storage', 'Dish racks and load sensing', 'Teammate'],
-					],
-				},
-				{ type: 'p', text: '**Why two computers:** safety tasks (motor PWM, ultrasonic, encoders) run on the ESP32-S3; mapping, the camera and the request server run on the Jetson. They talk over UART, so a stalled Jetson can never delay a stop.' },
-			],
-		},
-		{
-			id: 'integration',
-			title: 'System integration',
-			blocks: [
-				{ type: 'p', text: 'Teammates built the chassis, drivetrain and a temporary electronics box. I drew the wiring diagram, wrote the integration firmware, and powered the Jetson and LiDAR from the battery.' },
+				{ type: 'p', text: 'Safety tasks (motor PWM, ultrasonic, encoders) run on the ESP32-S3. Mapping and the request server run on the Jetson, so a stalled Jetson can never delay a stop.' },
 				{
 					type: 'figure',
 					figure: {
 						src: '/images/BusBot_SystemIntegration_Diagram.png',
 						alt: 'Hand-drawn system integration diagram: battery, rocker switch, 20 A fuse and voltage/current monitor feeding a 12 to 5 V buck for the ESP32, a 12 to 19 V boost for the Jetson, the LiDAR and two motor drivers; the ESP32 reads the ultrasonic sensor and both encoders and talks to the Jetson over UART',
-						caption: 'Integration diagram. Red: 12 V power. Orange: ESP32 3.3 V. Blue: ESP32 data. Purple: Jetson data.',
+						caption: 'My integration diagram. Red: 12 V power. Orange: ESP32 3.3 V. Blue: ESP32 data. Purple: Jetson data.',
 					},
 				},
-				{ type: 'h3', text: 'Floor test: straight-line obstacle stop' },
+			],
+		},
+		{
+			id: 'integration',
+			title: 'Integration and floor test',
+			blocks: [
 				{
-					type: 'cols',
-					left: [
-						{ type: 'p', text: 'The base drove on battery power toward a box about 1 m away. For testing in the crowded lab we lowered the stop threshold from 40 cm to 20 cm, so it would not trigger on nearby objects, especially while turning.' },
-						{ type: 'p', text: 'It stopped roughly 20 cm from the box. We did not measure the start position or the stopping gap precisely. The base drifted slightly to one side, likely because the two motors run on different drivers.' },
-					],
-					right: [
-						{ type: 'video', src: '/videos/BusBot_SystemIntegration.mp4', label: 'Video of the BusBot base driving toward a box and stopping', caption: 'The floor test.' },
-					],
-				},
-				{ type: 'h3', text: 'Jetson and LiDAR on battery power' },
-				{
-					type: 'list',
-					items: [
-						'Tuned a 12 → 19 V boost converter for the Jetson. The LiDAR runs straight off 12 V.',
-						'Made the barrel-jack leads and bench-tested each load behind a 2 A fuse before wiring it in.',
-						"Result: the Jetson boots and the team's LiDAR map displays in ROS 2, all on battery.",
-					],
+					type: 'video',
+					src: '/videos/BusBot_SystemIntegration.mp4',
+					label: 'Video of the BusBot base driving toward a box and stopping',
+					caption: 'Floor test on battery: it stopped 0.2 m from the box, and the encoder distance was within 4 cm of a tape measurement.',
 				},
 				{
 					type: 'figures',
 					figures: [
-						{ src: '/images/BusBot_Navigation.jpg', alt: 'The BusBot base on a lab bench next to the Jetson Orin Nano and SICK LiDAR, with a monitor showing the LiDAR scan in ROS 2', caption: 'LiDAR scan on the monitor, running from the robot battery.' },
-						{ src: '/images/BusBot_RearView.jpg', alt: 'Rear of the BusBot base with labels for the 20 A fuse, the 2 A inline fuses, the test QR code, motor 1 and wheel 1', caption: 'Rear: 20 A main fuse, inline fuses for the Jetson and LiDAR, test QR code.' },
+						{ src: '/images/BusBot_Navigation.jpg', alt: 'The BusBot base on a lab bench next to the Jetson Orin Nano and SICK LiDAR, with a monitor showing the LiDAR scan in ROS 2', caption: 'Jetson and LiDAR running from the robot battery, through a 12 → 19 V boost I tuned.' },
+						{ src: '/images/BusBot_RearView.jpg', alt: 'Rear of the BusBot base with labels for the 20 A fuse, the 2 A inline fuses, the test QR code, motor 1 and wheel 1', caption: 'Rear: 20 A main fuse, inline fuses for the Jetson and LiDAR.' },
 					],
 				},
 			],
 		},
 		{
 			id: 'sensors',
-			title: 'Ultrasonic obstacle detection',
+			title: 'Ultrasonic obstacle stop',
 			blocks: [
-				{ type: 'p', text: 'The LiDAR sees 276°, leaving a blind spot behind the robot. Ultrasonic sensors cover it and keep working if the Jetson stalls. Working backward from the 20 cm clearance requirement gives a 40 cm trigger.' },
+				{ type: 'p', text: 'Ultrasonic sensors cover the LiDAR\'s 84° rear blind spot. My firmware (C, ESP-IDF) brakes at 40 cm and resumes past 45 cm.' },
 				{
 					type: 'budget',
 					caption: 'Stop-distance budget: 39.5 cm, so the firmware brakes at 40 cm.',
@@ -159,33 +127,21 @@ const busbot: Project = {
 						{ value: '2 cm', label: 'Sensor error' },
 					],
 				},
-				{ type: 'stopDemo' },
-				{ type: 'h3', text: 'Firmware' },
-				{
-					type: 'list',
-					items: [
-						'C with ESP-IDF, pinging every 100 ms.',
-						'Brakes at 40 cm or less and resumes past 45 cm. The 5 cm gap stops on/off chatter at the threshold.',
-						'Stops the motor if valid readings stop coming in.',
-					],
-				},
-				{ type: 'h3', text: 'Bench results' },
 				{
 					type: 'cols',
 					left: [
 						{
 							type: 'table',
-							caption: 'November 10, 2026, motor on a 12 V supply.',
+							caption: 'Bench results, November 10, 2026.',
 							head: ['Parameter', 'Limit', 'Measured', 'Result'],
 							rows: [
 								['Reading at 20 cm', '±2 cm', '20.2 cm', 'Pass'],
 								['Reading at 40 cm', '±2 cm', '38.6 cm', 'Pass'],
 								['Reading at 80 cm', '±2 cm', '50.6 cm', 'Fail'],
-								['Detection to brake command', '0.10 s max', 'Within limit', 'Pass'],
+								['Detection to brake', '0.10 s max', '0.06 s or less', 'Pass'],
 								['Stop and restart', '5 of 5', '5 of 5', 'Pass'],
 							],
 						},
-						{ type: 'p', text: 'Accurate where the stop decision is made; under-reads at 80 cm.' },
 					],
 					right: [
 						{
@@ -193,7 +149,7 @@ const busbot: Project = {
 							figure: {
 								src: '/images/BusBot_UltrasonicTest_Fixture.jpg',
 								alt: 'Bench fixture for the ultrasonic obstacle test: sensor, ESP32-S3, motor driver and gearmotor on a 12 V supply',
-								caption: 'Bench test fixture.',
+								caption: 'The bench fixture I built: 12 V supply, fuse, E-stop, motor driver and encoder.',
 							},
 						},
 					],
@@ -202,66 +158,35 @@ const busbot: Project = {
 		},
 		{
 			id: 'power',
-			title: 'Power: battery monitor and budget',
+			title: 'Power',
 			blocks: [
-				{ type: 'p', text: "Power belongs to the team's other electrical engineer. My parts were the battery monitor and the power budget." },
-				{ type: 'h3', text: 'Battery monitor' },
 				{
 					type: 'cols',
 					left: [
-						{
-							type: 'list',
-							items: [
-								'An INA226 measures battery voltage and current across a 2 mΩ shunt and reports to the ESP32-S3 over I2C.',
-								'Voltage tells the robot when to recharge; current checks the budget against real draw.',
-								'Readings matched a multimeter and the bench supply with the motor running.',
-							],
-						},
-					],
-					right: [
 						{
 							type: 'figure',
 							figure: {
 								src: '/images/BusBot_FrontEnd_CircuitDiagram.png',
 								alt: 'Circuit diagram of the BusBot power front end: battery, fuse, emergency stop, and INA226 battery monitor reporting to the ESP32-S3',
-								caption: 'Power front end with the battery monitor.',
+								caption: 'INA226 battery monitor on I2C. Readings matched a multimeter and the bench supply.',
 							},
-						},
-					],
-				},
-				{ type: 'h3', text: 'Budget and battery choice' },
-				{
-					type: 'cols',
-					left: [
-						{
-							type: 'table',
-							caption: 'Battery comparison at 12 V, 18 Ah.',
-							head: ['', 'Lithium iron phosphate', 'Sealed lead acid (chosen)'],
-							rowHeaders: true,
-							rows: [
-								['Weight', 'About 5 lb', 'About 12 lb, keeps the center of gravity low'],
-								['Cost', '$75 to $200', '$20 to $60'],
-								['Lab safety', 'Needs approval', 'No approval needed'],
-								['Charge monitoring', 'Flat voltage curve', 'Voltage falls predictably'],
-							],
 						},
 					],
 					right: [
 						{
 							type: 'table',
-							caption: 'Expected average draw: 36 kg at 0.5 m/s, driving 75% of the time.',
+							caption: 'My power budget. The 18 Ah test battery gives 2.47 h; the final robot needs 22 Ah or more.',
 							head: ['Branch', 'Loads', 'Power'],
 							numeric: [2],
 							rows: [
 								['Drive', 'Two gearmotors, plus 20% for turns and starts', '20.9 W'],
 								['Compute', 'Jetson (15 W mode), LiDAR, camera, losses', '21.1 W'],
 								['Control', 'ESP32-S3 and its sensors', '1.7 W'],
-								['**Total**', '3.6 A from the battery', '**43.7 W**'],
+								['**Total**', '3.6 A from the 12 V battery', '**43.7 W**'],
 							],
 						},
 					],
 				},
-				{ type: 'p', text: 'The target is 2.5 hours on half the battery\'s capacity. The 18 Ah test battery gives 2.47 hours, so the final robot needs 22 Ah or more, pending a discharge test.' },
 			],
 		},
 		{
@@ -273,29 +198,25 @@ const busbot: Project = {
 					head: ['Problem', 'Cause', 'Change'],
 					rows: [
 						['LiDAR blind spot', 'The LiDAR covers 276°, not 360°.', 'Added rear ultrasonic sensing.'],
-						['Power budget grew', 'Moving from a Raspberry Pi 5 to a Jetson raised the estimate from about 35 W to 43.7 W.', 'Final robot needs 22 Ah or more.'],
+						["Motor wouldn't start", 'The echo divider dropped the signal below the ESP32-S3 logic threshold.', 'Removed the divider.'],
+						['Drift to one side', 'Two mismatched motor drivers on the same PWM.', 'Specified one two-channel Cytron MDD20A.'],
 						['Ultrasonic range error', 'Read 50.6 cm for a target at 80 cm.', 'Retesting with a new sensor.'],
-						["Motor wouldn't start", 'At 3.3 V, the echo divider dropped the signal to about 2.0 V, below the ESP32-S3 logic threshold.', 'Removed the divider.'],
-						['Wrong motor driver', 'Received a one-channel driver instead of the two-channel MDD20A.', 'Used a lab HW-039 for the second motor; ordered the MDD20A.'],
-						['Drift to one side', 'Two different drivers on the same open-loop PWM.', 'Moving to one MDD20A.'],
-						['Boost wired backwards', 'Blew the 2 A fuse on the Jetson lead; nothing else was damaged.', 'Rewired; replaced with a 3 A fuse.'],
-						['Converters always on', 'The buck and boost bypass the switch.', 'Open: move them behind it once we confirm the Jetson tolerates a hard power cut.'],
+						['Boost wired backwards', 'Blew the 2 A fuse on the Jetson lead.', 'Rewired; replaced with a 3 A fuse.'],
+						['Power budget grew', 'Moving to a Jetson raised it from about 35 W to 43.7 W.', 'Final robot needs 22 Ah or more.'],
 					],
 				},
 			],
 		},
 		{
 			id: 'next',
-			title: 'What comes next',
+			title: 'Next',
 			blocks: [
 				{
 					type: 'list',
 					items: [
-						'Swap in the two-channel MDD20A and rerun the straight-line test.',
-						'Put the converters behind the switch and replace it with a push-button emergency stop.',
-						'Build the UART link so a QR request on the Jetson starts the robot.',
-						'Retest the ultrasonic at 80 cm with a new sensor.',
-						'Lay out the main circuit board in KiCad from the integration diagram.',
+						'Rerun the straight-line test on the MDD20A.',
+						'Add a push-button emergency stop ahead of the converters.',
+						'Lay out the main circuit board in KiCad.',
 					],
 				},
 			],
@@ -320,7 +241,7 @@ const laundryFolder: Project = {
 		['My role', 'Only electrical engineer: power, forward kinematics, Arduino control debugging'],
 		['Team', '5 (3 mechanical, 1 electrical, 1 biomedical)'],
 		['Skills used', 'Power distribution, buck converters, Arduino, kinematics, MATLAB'],
-		['Design', 'Two rotating joints with 9.35 in links, one vertical joint, 12 V electromagnet'],
+		['Design', 'SCARA-inspired 2R1P arm: two rotating joints with 9.35 in links, one vertical joint, 12 V electromagnet'],
 		['Status', 'Complete. See "What went wrong" below.'],
 	],
 	hero: {
@@ -334,7 +255,7 @@ const laundryFolder: Project = {
 				{
 					type: 'list',
 					items: [
-						"**Power.** One 12 V supply feeds the electromagnet directly. Buck converters step it down to 5 V for the two joint servos and the Arduino Uno, so a loaded servo cannot pull down the controller's supply.",
+						"**Power.** One 12 V supply feeds the electromagnet directly. Buck converters step it down to 5 V for the two 25 kg·cm joint servos and the Arduino Uno, so a loaded servo cannot pull down the controller's supply.",
 						"**Forward kinematics.** Derived by hand from the arm's Denavit-Hartenberg parameters.",
 						"**Control debugging.** Converted a teammate's inverse kinematics angles into servo commands and debugged the Arduino code until all twelve steps of the folding path reached the right joint angles.",
 					],
@@ -384,11 +305,11 @@ const bedsideBeacon: Project = {
 	summary: 'A backup call system for hospital patients: a typed message crosses the room on a laser beam to a display a caregiver can read, with no network needed.',
 	lead: 'A backup call system for hospital patients. A typed message crosses the room on a laser beam to a display a caregiver can read, with no network needed.',
 	image: '/images/BedsideBeacon_Image.jpg',
-	tags: ['Circuit wiring', 'Motor testing', 'Onshape', 'Laser cutting'],
+	tags: ['ESP32', 'Circuit wiring', 'Motor testing', 'Onshape', 'Laser cutting'],
 	facts: [
 		['My role', 'Aiming motor tests, transmitter wiring, all housing design and build'],
 		['Team', '4'],
-		['Skills used', 'Circuit wiring, motor characterization, Onshape, laser cutting'],
+		['Skills used', 'ESP32, circuit wiring, motor characterization, Onshape, laser cutting'],
 		['How it works', 'A servo aims a 650 nm laser. Text is sent as timed pulses of 8-bit ASCII. A photodiode behind a 42 mm lens reads it back.'],
 		['Cost', '$119'],
 	],
@@ -459,10 +380,30 @@ const bedsideBeacon: Project = {
 							items: [
 								'From 4 to 8 ft, 19 of 21 transmissions succeeded (90%), meeting the 5 ft requirement.',
 								'From 10 ft out, about half failed. The likely cause is aiming: one servo step can move the beam farther than the lens is wide.',
-								'The receiver must face the transmitter squarely, because the beam has to enter the lens head-on.',
 							],
 						},
-						{ type: 'figure', figure: { src: '/images/BedsideBeacon_BEV.jpg', alt: "Bird's eye view of the transmitter and receiver showing the laser path and the receiver angle", caption: "Bird's eye view of the link geometry." } },
+					],
+				},
+			],
+		},
+		{
+			id: 'errata',
+			title: 'What went wrong',
+			blocks: [
+				{
+					type: 'cols',
+					left: [
+						{
+							type: 'list',
+							items: [
+								'The laser had almost no margin for error: the beam had to land directly on the photodiode.',
+								'We put a convex lens in front of the photodiode to redirect the beam onto it from any angle. It helped, but did not fully work.',
+								'So the receiver still has to face the transmitter squarely to read a message, as the bird\'s eye view shows.',
+							],
+						},
+					],
+					right: [
+						{ type: 'figure', figure: { src: '/images/BedsideBeacon_BEV.jpg', alt: "Bird's eye view of the transmitter and receiver showing the laser path and the receiver facing the transmitter squarely", caption: 'The receiver faces the transmitter squarely so the beam reaches the photodiode.' } },
 					],
 				},
 			],
@@ -472,6 +413,7 @@ const bedsideBeacon: Project = {
 
 const dcOpf: Project = {
 	slug: 'dc-opf',
+	blurb: 'MATLAB optimal power flow study of new generation on the New England grid.',
 	title: 'Grid congestion',
 	category: 'Software',
 	period: 'Fall 2025',
@@ -545,6 +487,7 @@ const whackAMole: Project = {
 	role: 'Game logic and score display',
 	summary: 'A reaction game written in Verilog on an FPGA board. Eight LEDs are the moles, eight switches hit them, and a faster reaction scores more.',
 	lead: 'A reaction game written in Verilog on an FPGA board. Eight LEDs are the moles, eight switches hit them, and a faster reaction scores more.',
+	image: '/images/WhackAMole_Board.jpg',
 	tags: ['Verilog', 'FPGA', 'Xilinx Vivado'],
 	facts: [
 		['My role', 'Game logic and the multiplexed score display'],
@@ -594,6 +537,7 @@ const tetris: Project = {
 	role: 'Speed control, rules and settings screens',
 	summary: 'A Tetris variant built as a team in Android Studio, written in Java with score calculation in C++.',
 	lead: 'A Tetris variant built as a team in Android Studio, written in Java with score calculation in C++.',
+	image: '/images/Tetris_Emulator.jpg',
 	tags: ['Java', 'C++', 'Android Studio'],
 	facts: [
 		['My role', 'Adjustable speed, rules screen and settings screen'],
@@ -716,6 +660,7 @@ const meetingTimer: Project = {
 
 const temperatureMonitor: Project = {
 	slug: 'temperature-monitor',
+	blurb: 'Arduino box that shows room temperature and beeps outside 75 to 80 °F.',
 	title: 'Room Temperature Monitor',
 	category: 'Hardware',
 	period: 'Spring 2024',
@@ -781,6 +726,7 @@ const temperatureMonitor: Project = {
 
 const truss: Project = {
 	slug: 'truss',
+	blurb: 'MATLAB truss solver that raised an acrylic truss\'s predicted failure load to 47.1 oz.',
 	title: 'Truss Design in MATLAB',
 	category: 'Software',
 	period: 'Fall 2024',
@@ -847,6 +793,7 @@ const truss: Project = {
 
 const mbta: Project = {
 	slug: 'mbta-ridership',
+	blurb: 'MATLAB analysis and regression model of 900,000 rows of MBTA bus ridership.',
 	title: 'Predicting MBTA Bus Ridership',
 	category: 'Software',
 	period: 'Fall 2023',

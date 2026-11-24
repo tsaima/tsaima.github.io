@@ -1,0 +1,366 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-24T00:33:10.485838+00:00",
+  "title": "Design System: Maxwell Tsai, Engineering Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "copper": {
+        "role": "primary",
+        "displayName": "Muted Copper",
+        "canonical": "hsl(24 52% 62%) ~ #d0946c",
+        "tonalRamp": [
+          "#2f251e",
+          "#5a412f",
+          "#8b5b3c",
+          "#bf7645",
+          "#cc9875",
+          "#d7bba8",
+          "#e4d6cd",
+          "#f5f2ef"
+        ]
+      },
+      "copper-ink": {
+        "role": "primary",
+        "displayName": "Copper Ink",
+        "canonical": "hsl(220 8% 7%) ~ #101113",
+        "tonalRamp": [
+          "#252627",
+          "#424447",
+          "#5f6268",
+          "#7b8089",
+          "#9c9fa6",
+          "#bdbec2",
+          "#d7d8da",
+          "#f2f2f3"
+        ]
+      },
+      "pcb": {
+        "role": "secondary",
+        "displayName": "Muted Rust",
+        "canonical": "hsl(24 30% 38%) ~ #7e5b44",
+        "tonalRamp": [
+          "#2b2521",
+          "#514238",
+          "#7a5f4c",
+          "#a57b5f",
+          "#ba9c88",
+          "#cdbdb2",
+          "#dfd7d2",
+          "#f4f2f1"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "hsl(220 6% 7%) ~ #111113",
+        "tonalRamp": [
+          "#252627",
+          "#424447",
+          "#5f6268",
+          "#7b8089",
+          "#9c9fa6",
+          "#bdbec2",
+          "#d7d8da",
+          "#f2f2f3"
+        ]
+      },
+      "graphite": {
+        "role": "neutral",
+        "displayName": "Graphite",
+        "canonical": "hsl(220 6% 10%) ~ #18191b",
+        "tonalRamp": [
+          "#252627",
+          "#424447",
+          "#5f6268",
+          "#7b8089",
+          "#9c9fa6",
+          "#bdbec2",
+          "#d7d8da",
+          "#f2f2f3"
+        ]
+      },
+      "slate": {
+        "role": "neutral",
+        "displayName": "Slate",
+        "canonical": "hsl(220 5% 13%) ~ #1f2123",
+        "tonalRamp": [
+          "#252627",
+          "#424447",
+          "#5f6268",
+          "#7b8089",
+          "#9c9fa6",
+          "#bdbec2",
+          "#d7d8da",
+          "#f2f2f3"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "hsl(220 5% 18%) ~ #2c2d30",
+        "tonalRamp": [
+          "#252627",
+          "#424447",
+          "#5f6268",
+          "#7b8089",
+          "#9c9fa6",
+          "#bdbec2",
+          "#d7d8da",
+          "#f2f2f3"
+        ]
+      },
+      "field-edge": {
+        "role": "neutral",
+        "displayName": "Field Edge",
+        "canonical": "hsl(220 5% 22%) ~ #35373b",
+        "tonalRamp": [
+          "#252627",
+          "#424447",
+          "#5f6268",
+          "#7b8089",
+          "#9c9fa6",
+          "#bdbec2",
+          "#d7d8da",
+          "#f2f2f3"
+        ]
+      },
+      "bone": {
+        "role": "neutral",
+        "displayName": "Bone",
+        "canonical": "hsl(40 12% 91%) ~ #ebe9e5",
+        "tonalRamp": [
+          "#282724",
+          "#4a4740",
+          "#6d675a",
+          "#908774",
+          "#aba497",
+          "#c5c1ba",
+          "#dbdad6",
+          "#f3f2f2"
+        ]
+      },
+      "ash": {
+        "role": "neutral",
+        "displayName": "Ash",
+        "canonical": "hsl(40 4% 63%) ~ #a4a29d",
+        "tonalRamp": [
+          "#282724",
+          "#4a4740",
+          "#6d675a",
+          "#908774",
+          "#aba497",
+          "#c5c1ba",
+          "#dbdad6",
+          "#f3f2f2"
+        ]
+      },
+      "signal-red": {
+        "role": "error",
+        "displayName": "Signal Red",
+        "canonical": "hsl(0 65% 58%) ~ #da4e4e",
+        "tonalRamp": [
+          "#2e1414",
+          "#5a2222",
+          "#8a2f2f",
+          "#b83c3c",
+          "#da4e4e",
+          "#e58080",
+          "#efb3b3",
+          "#fae6e6"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The name on the home page, once; 3rem mobile to 4.5rem desktop."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Project page title; 2.25rem to 3rem."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Section headings, 32px above content; project titles in the home list at a smaller size."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "The single positioning sentence under the name, max 34ch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "About and Contact prose, max 62ch, Bone at 85%."
+      },
+      "body-sm": {
+        "displayName": "Body Small",
+        "purpose": "Experience headlines and bullets (62ch), project one-liners (68ch), Methods line (70ch)."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Dates (tabular), metadata joined with ' · ', form labels, nav links, captions; usually Ash."
+      },
+      "wordmark": {
+        "displayName": "Wordmark",
+        "purpose": "Header name only: uppercase, 0.14em tracking."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "ease-reveal",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Scroll reveal: opacity 0 to 1 and translateY(14px) to 0 over 0.7s, once, only for content starting below the fold; off under reduced motion."
+      },
+      {
+        "name": "thumb-zoom",
+        "value": "transform 700ms ease-out, scale 1.03",
+        "purpose": "Project photo eases in on row hover."
+      },
+      {
+        "name": "color-state",
+        "value": "color/background 150ms cubic-bezier(0.4, 0, 0.2, 1)",
+        "purpose": "Link, button and nav colour changes."
+      },
+      {
+        "name": "disclosure",
+        "value": "rotate(180deg) 150ms",
+        "purpose": "Experience row chevron on open."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one filled action: View resume.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">View resume <span>PDF</span></a>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;gap:8px;background:hsl(var(--primary));color:hsl(var(--primary-foreground));padding:12px 20px;border-radius:6px;font:600 15px/1.5 var(--font-sans),system-ui,sans-serif;text-decoration:none;transition:background-color .15s}.ds-btn-primary span{font-weight:400;opacity:.75}.ds-btn-primary:hover{background:hsl(var(--primary)/.9)}.ds-btn-primary:focus-visible{outline:2px solid hsl(var(--ring));outline-offset:2px}"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Header Resume and form Send: copper edge, fills copper on hover.",
+      "html": "<a class=\"ds-btn-outline\" href=\"#\">Resume</a>",
+      "css": ".ds-btn-outline{display:inline-flex;align-items:center;border:1px solid hsl(var(--primary)/.7);background:transparent;color:hsl(var(--foreground));padding:6px 14px;border-radius:6px;font:500 14px/1.43 var(--font-sans),system-ui,sans-serif;text-decoration:none;transition:background-color .15s,color .15s}.ds-btn-outline:hover{background:hsl(var(--primary));color:hsl(var(--primary-foreground))}.ds-btn-outline:focus-visible{outline:2px solid hsl(var(--ring));outline-offset:2px}"
+    },
+    {
+      "name": "Quiet Button",
+      "kind": "button",
+      "refersTo": "button-quiet",
+      "description": "Utility control such as Copy email.",
+      "html": "<button class=\"ds-btn-quiet\" type=\"button\"><svg viewBox=\"0 0 24 24\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><rect x=\"9\" y=\"9\" width=\"13\" height=\"13\" rx=\"2\"/><path d=\"M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1\"/></svg>Copy</button>",
+      "css": ".ds-btn-quiet{display:inline-flex;align-items:center;gap:6px;border:1px solid hsl(var(--border));background:transparent;color:hsl(var(--muted-foreground));padding:4px 10px;border-radius:6px;font:400 14px/1.43 var(--font-sans),system-ui,sans-serif;cursor:pointer;transition:color .15s,border-color .15s}.ds-btn-quiet:hover{color:hsl(var(--foreground));border-color:hsl(var(--foreground)/.4)}.ds-btn-quiet:focus-visible{outline:2px solid hsl(var(--ring));outline-offset:2px}"
+    },
+    {
+      "name": "Text Link",
+      "kind": "custom",
+      "refersTo": "copper",
+      "description": "Bone text, copper underline at 60%, full copper on hover.",
+      "html": "<a class=\"ds-link\" href=\"#\">Get in touch</a>",
+      "css": ".ds-link{color:hsl(var(--foreground));text-decoration:underline;text-decoration-color:hsl(var(--primary)/.6);text-underline-offset:3px;font:400 15px/1.5 var(--font-sans),system-ui,sans-serif;transition:color .15s,text-decoration-color .15s}.ds-link:hover{color:hsl(var(--primary));text-decoration-color:hsl(var(--primary))}.ds-link:focus-visible{outline:2px solid hsl(var(--ring));outline-offset:2px;border-radius:4px}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Contact form field with a copper focus ring.",
+      "html": "<label class=\"ds-field\"><span>Email</span><input placeholder=\"So I can reply\"></label>",
+      "css": ".ds-field{display:flex;flex-direction:column;gap:6px;font:500 14px/1.43 var(--font-sans),system-ui,sans-serif;color:hsl(var(--foreground))}.ds-field input{background:hsl(var(--card));border:1px solid hsl(var(--input));border-radius:6px;padding:10px 12px;font:400 14px/1.43 inherit;color:hsl(var(--foreground));caret-color:hsl(var(--ring))}.ds-field input::placeholder{color:hsl(var(--muted-foreground)/.7)}.ds-field input:focus{outline:none;box-shadow:0 0 0 2px hsl(var(--ring))}"
+    },
+    {
+      "name": "Header Navigation",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Sticky header: wordmark, section links, outlined Resume.",
+      "html": "<header class=\"ds-nav\"><a class=\"ds-nav-mark\" href=\"#\">Maxwell Tsai</a><nav><a href=\"#\">About</a><a href=\"#\" aria-current=\"location\">Experience</a><a href=\"#\">Projects</a><a href=\"#\">Skills</a><a href=\"#\">Contact</a></nav><a class=\"ds-nav-cta\" href=\"#\">Resume</a></header>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:32px;height:64px;padding:0 32px;background:hsl(var(--background));border-bottom:1px solid hsl(var(--border));font-family:var(--font-sans),system-ui,sans-serif}.ds-nav-mark{font-size:15px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:hsl(var(--foreground));text-decoration:none;transition:color .15s}.ds-nav-mark:hover{color:hsl(var(--primary))}.ds-nav nav{margin-left:auto;display:flex;gap:4px}.ds-nav nav a{padding:8px;font-size:14px;color:hsl(var(--muted-foreground));text-decoration:none;transition:color .15s}.ds-nav nav a:hover,.ds-nav nav a[aria-current]{color:hsl(var(--foreground))}.ds-nav-cta{border:1px solid hsl(var(--primary)/.7);border-radius:6px;padding:6px 14px;font-size:14px;font-weight:500;color:hsl(var(--foreground));text-decoration:none;transition:background-color .15s,color .15s}.ds-nav-cta:hover{background:hsl(var(--primary));color:hsl(var(--primary-foreground))}"
+    },
+    {
+      "name": "Project Row",
+      "kind": "card",
+      "refersTo": "project-thumb",
+      "description": "Signature row: 4:3 photo with a monochrome tool-icon strip, title, one line (max 68ch), metadata. The icon paths in this sample are placeholders.",
+      "html": "<a class=\"ds-proj\" href=\"#\"><div class=\"ds-proj-img\"><div class=\"ds-proj-strip\"><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"currentColor\"><path d=\"M4 4h16v16H4z\"/></svg><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"currentColor\"><path d=\"M12 2a10 10 0 1 0 0 20a10 10 0 0 0 0-20z\"/></svg></div></div><div><h3>BusBot</h3><p>A campus shuttle robot that stops for obstacles.</p><small>Robotics · 2026</small></div></a>",
+      "css": ".ds-proj{display:grid;grid-template-columns:240px 1fr;gap:32px;align-items:start;text-decoration:none;color:hsl(var(--foreground));font-family:var(--font-sans),system-ui,sans-serif}.ds-proj-img{position:relative;aspect-ratio:4/3;border-radius:8px;overflow:hidden;background:hsl(var(--muted));transition:transform .7s ease-out}.ds-proj-strip{position:absolute;left:0;right:0;bottom:0;display:flex;gap:12px;padding:8px 12px;background:hsl(var(--background)/.88);color:hsl(var(--foreground)/.9)}.ds-proj h3{margin:4px 0 0;font-size:1.5rem;font-weight:600;letter-spacing:-.025em;transition:color .15s}.ds-proj p{margin:8px 0 0;max-width:68ch;font-size:16px;line-height:1.625;color:hsl(var(--foreground)/.8)}.ds-proj small{display:block;margin-top:8px;font-size:14px;color:hsl(var(--muted-foreground))}.ds-proj:hover h3{color:hsl(var(--primary))}.ds-proj:focus-visible{outline:2px solid hsl(var(--ring));outline-offset:2px;border-radius:4px}"
+    },
+    {
+      "name": "Experience Row",
+      "kind": "custom",
+      "refersTo": "hairline",
+      "description": "Ruled disclosure row: date column, role, company, headline.",
+      "html": "<details class=\"ds-exp\"><summary><span class=\"ds-exp-date\">May–Aug 2026</span><span><b>Engineering intern</b><em>Intel · Hillsboro, OR</em><span class=\"ds-exp-line\">Built a JMP tool that cut wafer data retrieval to two hours.</span></span></summary><ul><li>Detail bullet.</li></ul></details>",
+      "css": ".ds-exp{border-top:1px solid hsl(var(--border));border-bottom:1px solid hsl(var(--border));font-family:var(--font-sans),system-ui,sans-serif;color:hsl(var(--foreground))}.ds-exp summary{display:grid;grid-template-columns:170px 1fr;gap:4px 32px;padding:20px 0;cursor:pointer;list-style:none}.ds-exp summary::-webkit-details-marker{display:none}.ds-exp-date{font-size:14px;color:hsl(var(--muted-foreground));font-variant-numeric:tabular-nums}.ds-exp b{display:block;font-size:17px;font-weight:500}.ds-exp em{display:block;font-style:normal;font-size:14px;color:hsl(var(--muted-foreground));margin-top:2px}.ds-exp-line{display:block;margin-top:8px;font-size:15px;line-height:1.625;color:hsl(var(--foreground)/.8)}.ds-exp ul{margin:0 0 24px 202px;padding-left:20px;font-size:15px;line-height:1.625;color:hsl(var(--foreground)/.75)}.ds-exp summary:focus-visible{outline:2px solid hsl(var(--ring));outline-offset:2px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Bench Log",
+    "overview": "A single dark page read top to bottom like a well-kept lab notebook: name and intent first, then short ruled rows of experience, then each build shown as its own photograph with one line beneath it. The ground is near-black and neutral, the text a warm bone white, and there is exactly one colour with a job: a muted copper that appears where the reader can click, focus or act. Everything else is type, hairline rules and the builds' own photos.\n\nDensity is low and the column is narrow. Hierarchy comes from size and weight inside one grotesk family, not from boxes, colour fields or ornament. The home page has no cards, no stat bands, no illustration and no 3D; structure is carried by 1px rules between sections and between rows. Project pages carry the same voice into report form, numbering figures and tables down the page and reserving bordered panels for data.\n\nMotion is small and optional: content below the fold fades up once, a thumbnail photo eases in by 3% on hover, and all of it switches off under reduced motion.",
+    "keyCharacteristics": [
+      "Near-black neutral ground with warm bone text; one copper accent for action.",
+      "One family (Schibsted Grotesk), hierarchy by size, weight 600 and tight tracking.",
+      "Hairline rules, not cards, separate sections and rows.",
+      "Build photographs are the only imagery; tools appear as monochrome single-path icons in the text colour.",
+      "A narrow 1080px column, generous vertical rhythm, left-aligned throughout."
+    ],
+    "rules": [
+      {
+        "name": "The Single Copper Rule",
+        "body": "Copper marks what the reader can act on (links, hover, focus, caret, the Resume and Send actions) and, on project pages, measured results. It never fills a section, decorates a heading or tints a background.",
+        "section": "colors"
+      },
+      {
+        "name": "The Alpha-Before-New-Colour Rule",
+        "body": "Quieter text is Bone at reduced alpha, not a new grey. A new neutral needs a structural job (ground, panel, edge) before it earns a token.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Family Rule",
+        "body": "Every role is Schibsted Grotesk. Hierarchy comes from size steps, weight 600 and tracking, never from a second display face.",
+        "section": "typography"
+      },
+      {
+        "name": "The Wordmark-Only Capitals Rule",
+        "body": "Spaced capitals belong to the header name. Section labels, metadata and buttons stay in sentence case.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Bench Rule",
+        "body": "Surfaces are flat at rest and on hover. State is shown by colour (copper, Bone) and by the photo's own slight zoom, never by lift.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep copper to actions, hover, focus and measured results (The Single Copper Rule).",
+      "Do separate sections and list rows with 1px Hairline rules, and keep the home page free of enclosing cards.",
+      "Do set every role in Schibsted Grotesk, using weight 600 and negative tracking for headings.",
+      "Do step text down with Bone at 85%, 75-80% and Ash, rather than adding greys.",
+      "Do show a project with its real photograph, one line and its tool icons; give a new tool its simple-icons mark, or an authored single-path glyph on the 24px grid when it has none.",
+      "Do number figures and tables in order down a project page, captions in Ash with a semibold Bone \"Figure n.\" or \"Table n.\".",
+      "Do gate every motion on `prefers-reduced-motion` and leave above-the-fold content visible without JavaScript."
+    ],
+    "donts": [
+      "Don't add shadows, glows, blur or lift on hover (The Flat Bench Rule).",
+      "Don't add imagery other than build photos and the portrait: no illustration, 3D hero, stock art or decorative backgrounds.",
+      "Don't add a stats band, metric tiles or a card grid of projects.",
+      "Don't set anything but the header name in spaced capitals, and don't add small uppercase labels above headings.",
+      "Don't use coloured brand logos, multicolour icons, stroked outline icons or emoji for tools; every tool icon is one filled path, monochrome in the text colour.",
+      "Don't introduce a second accent hue for decoration."
+    ]
+  }
+}

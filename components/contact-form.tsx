@@ -8,7 +8,7 @@ import { siteConfig } from '@/lib/constants';
 type Status = 'idle' | 'sending' | 'sent' | 'error';
 
 const field =
-	'w-full rounded-md border bg-background px-3 py-2.5 text-sm placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-ring';
+	'w-full rounded-md border border-input bg-card px-3 py-2.5 text-sm placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-ring';
 
 export function ContactForm() {
 	const [form, setForm] = useState({ name: '', email: '', message: '' });
@@ -45,7 +45,7 @@ export function ContactForm() {
 	};
 
 	return (
-		<form onSubmit={submit} className="rounded-lg border bg-card p-5 md:p-6 flex flex-col gap-4">
+		<form onSubmit={submit} className="flex flex-col gap-4">
 			<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 				<div className="flex flex-col gap-1.5">
 					<label htmlFor="cf-name" className="text-sm font-medium">Name</label>
@@ -64,13 +64,13 @@ export function ContactForm() {
 				<button
 					type="submit"
 					disabled={status === 'sending'}
-					className="inline-flex items-center gap-2 rounded-md bg-primary text-primary-foreground px-4 py-2.5 text-sm font-semibold hover:bg-primary/90 disabled:opacity-60"
+					className="inline-flex items-center gap-2 rounded-md border border-primary/70 px-4 py-2.5 text-sm font-medium text-foreground hover:bg-primary hover:text-primary-foreground transition-colors disabled:opacity-60"
 				>
 					<Send className="h-4 w-4" aria-hidden="true" />
 					{status === 'sending' ? 'Sending…' : 'Send message'}
 				</button>
 				<p role="status" aria-live="polite" className="text-sm">
-					{status === 'sent' && <span className="text-[hsl(var(--pcb-light))]">Thanks, your message was sent. I will reply by email.</span>}
+					{status === 'sent' && <span className="text-primary">Thanks, your message was sent. I will reply by email.</span>}
 					{status === 'error' && (
 						<span className="text-destructive">
 							Something went wrong. Please email me at <a href={siteConfig.links.email} className="underline">{siteConfig.links.emailText}</a>.
