@@ -1,37 +1,37 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-24T00:33:10.485838+00:00",
+  "generatedAt": "2026-11-24T04:32:46.240309+00:00",
   "title": "Design System: Maxwell Tsai, Engineering Portfolio",
   "extensions": {
     "colorMeta": {
       "copper": {
         "role": "primary",
-        "displayName": "Muted Copper",
-        "canonical": "hsl(24 52% 62%) ~ #d0946c",
+        "displayName": "BusBot Amber",
+        "canonical": "hsl(30 68% 65%) ~ #e2a669",
         "tonalRamp": [
-          "#2f251e",
-          "#5a412f",
-          "#8b5b3c",
-          "#bf7645",
-          "#cc9875",
-          "#d7bba8",
-          "#e4d6cd",
-          "#f5f2ef"
+          "#352618",
+          "#654524",
+          "#9b632c",
+          "#d38231",
+          "#dba166",
+          "#e1bf9d",
+          "#ead9c7",
+          "#f7f2ed"
         ]
       },
       "copper-ink": {
         "role": "primary",
         "displayName": "Copper Ink",
-        "canonical": "hsl(220 8% 7%) ~ #101113",
+        "canonical": "hsl(15 30% 9%) ~ #1e1410",
         "tonalRamp": [
-          "#252627",
-          "#424447",
-          "#5f6268",
-          "#7b8089",
-          "#9c9fa6",
-          "#bdbec2",
-          "#d7d8da",
-          "#f2f2f3"
+          "#2d2320",
+          "#533e37",
+          "#7c574b",
+          "#a6705e",
+          "#ba9487",
+          "#ceb8b0",
+          "#e0d5d1",
+          "#f4f1f0"
         ]
       },
       "pcb": {
@@ -52,106 +52,106 @@
       "ink": {
         "role": "neutral",
         "displayName": "Ink",
-        "canonical": "hsl(220 6% 7%) ~ #111113",
+        "canonical": "hsl(15 11% 7%) ~ #141110",
         "tonalRamp": [
-          "#252627",
-          "#424447",
-          "#5f6268",
-          "#7b8089",
-          "#9c9fa6",
-          "#bdbec2",
-          "#d7d8da",
-          "#f2f2f3"
+          "#292524",
+          "#4a4240",
+          "#6c5f5a",
+          "#8f7b75",
+          "#aa9c97",
+          "#c5bdba",
+          "#dcd7d6",
+          "#f3f2f1"
         ]
       },
       "graphite": {
         "role": "neutral",
         "displayName": "Graphite",
-        "canonical": "hsl(220 6% 10%) ~ #18191b",
+        "canonical": "hsl(20 17% 10%) ~ #1e1815",
         "tonalRamp": [
-          "#252627",
-          "#424447",
-          "#5f6268",
-          "#7b8089",
-          "#9c9fa6",
-          "#bdbec2",
-          "#d7d8da",
-          "#f2f2f3"
+          "#2a2523",
+          "#4d423d",
+          "#715f55",
+          "#967b6e",
+          "#af9c92",
+          "#c8bcb7",
+          "#ddd7d4",
+          "#f3f2f1"
         ]
       },
       "slate": {
         "role": "neutral",
         "displayName": "Slate",
-        "canonical": "hsl(220 5% 13%) ~ #1f2123",
+        "canonical": "hsl(20 12% 13%) ~ #25201d",
         "tonalRamp": [
-          "#252627",
-          "#424447",
-          "#5f6268",
-          "#7b8089",
-          "#9c9fa6",
-          "#bdbec2",
-          "#d7d8da",
-          "#f2f2f3"
+          "#292524",
+          "#4b433f",
+          "#6d605a",
+          "#907d74",
+          "#ab9d96",
+          "#c5bdb9",
+          "#dcd8d6",
+          "#f3f2f1"
         ]
       },
       "hairline": {
         "role": "neutral",
         "displayName": "Hairline",
-        "canonical": "hsl(220 5% 18%) ~ #2c2d30",
+        "canonical": "hsl(20 12% 18%) ~ #332c28",
         "tonalRamp": [
-          "#252627",
-          "#424447",
-          "#5f6268",
-          "#7b8089",
-          "#9c9fa6",
-          "#bdbec2",
-          "#d7d8da",
-          "#f2f2f3"
+          "#292524",
+          "#4b433f",
+          "#6d605a",
+          "#907d74",
+          "#ab9d96",
+          "#c5bdb9",
+          "#dcd8d6",
+          "#f3f2f1"
         ]
       },
       "field-edge": {
         "role": "neutral",
         "displayName": "Field Edge",
-        "canonical": "hsl(220 5% 22%) ~ #35373b",
+        "canonical": "hsl(20 10% 22%) ~ #3e3632",
         "tonalRamp": [
-          "#252627",
-          "#424447",
-          "#5f6268",
-          "#7b8089",
-          "#9c9fa6",
-          "#bdbec2",
-          "#d7d8da",
-          "#f2f2f3"
+          "#282624",
+          "#4a4340",
+          "#6c615b",
+          "#8e7e76",
+          "#a99e98",
+          "#c4beba",
+          "#dbd8d6",
+          "#f3f2f2"
         ]
       },
       "bone": {
         "role": "neutral",
         "displayName": "Bone",
-        "canonical": "hsl(40 12% 91%) ~ #ebe9e5",
+        "canonical": "hsl(36 45% 91%) ~ #f2eade",
         "tonalRamp": [
-          "#282724",
-          "#4a4740",
-          "#6d675a",
-          "#908774",
-          "#aba497",
-          "#c5c1ba",
-          "#dbdad6",
-          "#f3f2f2"
+          "#30281d",
+          "#5a492f",
+          "#886b3f",
+          "#b88d4c",
+          "#c7a87a",
+          "#d6c4a9",
+          "#e4dbcd",
+          "#f5f3ef"
         ]
       },
       "ash": {
         "role": "neutral",
         "displayName": "Ash",
-        "canonical": "hsl(40 4% 63%) ~ #a4a29d",
+        "canonical": "hsl(30 14% 61%) ~ #a99c8e",
         "tonalRamp": [
-          "#282724",
-          "#4a4740",
-          "#6d675a",
-          "#908774",
-          "#aba497",
-          "#c5c1ba",
-          "#dbdad6",
-          "#f3f2f2"
+          "#292623",
+          "#4c453e",
+          "#6f6358",
+          "#938271",
+          "#ada195",
+          "#c6bfb8",
+          "#dcd9d5",
+          "#f3f2f1"
         ]
       },
       "signal-red": {
@@ -310,7 +310,7 @@
   ],
   "narrative": {
     "northStar": "The Bench Log",
-    "overview": "A single dark page read top to bottom like a well-kept lab notebook: name and intent first, then short ruled rows of experience, then each build shown as its own photograph with one line beneath it. The ground is near-black and neutral, the text a warm bone white, and there is exactly one colour with a job: a muted copper that appears where the reader can click, focus or act. Everything else is type, hairline rules and the builds' own photos.\n\nDensity is low and the column is narrow. Hierarchy comes from size and weight inside one grotesk family, not from boxes, colour fields or ornament. The home page has no cards, no stat bands, no illustration and no 3D; structure is carried by 1px rules between sections and between rows. Project pages carry the same voice into report form, numbering figures and tables down the page and reserving bordered panels for data.\n\nMotion is small and optional: content below the fold fades up once, a thumbnail photo eases in by 3% on hover, and all of it switches off under reduced motion.",
+    "overview": "A single dark page read top to bottom like a well-kept lab notebook: name and intent first, then short ruled rows of experience, then each build shown as its own photograph with one line beneath it. The ground is a warm near-black, the text BusBot's cream, and there is exactly one colour with a job: BusBot's amber, which appears where the reader can click, focus or act. Everything else is type, hairline rules and the builds' own photos.\n\nDensity is low and the column is narrow. Hierarchy comes from size and weight inside one grotesk family, not from boxes, colour fields or ornament. The home page has no cards, no stat bands, no illustration and no 3D; structure is carried by 1px rules between sections and between rows. Project pages carry the same voice into report form, numbering figures and tables down the page and reserving bordered panels for data.\n\nMotion is small and optional: content below the fold fades up once, a thumbnail photo eases in by 3% on hover, and all of it switches off under reduced motion.",
     "keyCharacteristics": [
       "Near-black neutral ground with warm bone text; one copper accent for action.",
       "One family (Schibsted Grotesk), hierarchy by size, weight 600 and tight tracking.",

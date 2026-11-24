@@ -15,7 +15,7 @@ export const siteConfig = {
 		{ title: 'Contact', id: 'contact' },
 	],
 	// One general resume. To swap it, change the file name here.
-	resume: encodeURI("/files/Maxwell Tsai Resume A Fall '26.pdf"),
+	resume: encodeURI("/files/Maxwell Tsai Resume (Robotics Hardware).pdf"),
 	links: {
 		email: 'mailto:maxwelljtsai@gmail.com',
 		emailText: 'maxwelljtsai@gmail.com',

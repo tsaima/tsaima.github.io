@@ -34,7 +34,7 @@ const linkClass = 'text-foreground underline decoration-primary/60 underline-off
 export default function Home() {
 	return (
 		<>
-			<section id="intro" aria-label="Introduction" className="pt-16 pb-14 md:pt-20 md:pb-20 border-b grid md:grid-cols-[1fr_auto] items-center gap-x-12 gap-y-10">
+			<section id="intro" aria-label="Introduction" className="pt-16 pb-14 md:pt-20 md:pb-20 border-b grid lg:grid-cols-[1fr_auto] items-center gap-x-12 gap-y-10">
 				<div>
 					<h1 className="text-5xl md:text-7xl font-semibold tracking-[-0.03em] leading-[0.95]">Maxwell Tsai</h1>
 					<p className="mt-5 text-base md:text-lg text-muted-foreground">
@@ -59,7 +59,7 @@ export default function Home() {
 
 			<section id="about" aria-labelledby="about-heading" className="py-20 md:py-24 border-b scroll-mt-20">
 				<SectionHeading id="about">About</SectionHeading>
-				<div className="grid md:grid-cols-[1fr_220px] gap-10 md:gap-16 items-start">
+				<div className="grid md:grid-cols-[1fr_220px] gap-y-8 gap-x-16 items-start">
 					<div className="space-y-5 text-[17px] leading-relaxed text-foreground/85 max-w-[62ch]">
 						<p>
 							I am an electrical engineering student at Boston University, concentrating in robotics. I work on hardware from the circuit and
@@ -75,16 +75,18 @@ export default function Home() {
 							down what fails as well as what works: the{' '}
 							<Link href="/projects/busbot/#iterations" className={linkClass}>BusBot page</Link> has a section on what failed and what we changed.
 						</p>
-						<p className="pt-3 text-[15px] leading-relaxed text-foreground/75">
-							<span className="text-muted-foreground">Coursework: </span>
-							{coursework.join(', ')}.
-						</p>
 					</div>
 					<img
-						src="/images/headshot-square.jpg"
+						src="/images/headshot-portrait.jpg"
 						alt="Maxwell Tsai"
-						className="w-40 md:w-full aspect-square rounded-lg object-cover grayscale-[15%]"
+						width={800}
+						height={1000}
+						className="order-first md:order-none w-44 md:w-full h-auto aspect-[4/5] rounded-lg object-cover grayscale-[15%]"
 					/>
+					<p className="md:col-span-2 text-[15px] leading-relaxed text-foreground/75">
+						<span className="font-semibold text-foreground">Coursework: </span>
+						{coursework.join(', ')}.
+					</p>
 				</div>
 			</section>
 
